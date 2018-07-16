@@ -9,7 +9,10 @@ class curl extends Controller
 {
     public function getContent(){
 
-        event(new curlingEvent());
+        $url='https://laracasts.com/discuss/channels/general-discussion/pass-data-from-listener-to-event';
+        $content=event(new curlingEvent(curl_init(),$url))[0];
+
+        echo $content;
 
 
     }

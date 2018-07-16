@@ -26,6 +26,13 @@ class curlingSettings
      */
     public function handle(curlingEvent $event)
     {
-        dd('event test');
+        #returns content of curl
+        $c=$event->curlData['handler'];
+        curl_setopt($c, CURLOPT_URL, trim($event->curlData['url']));
+
+        $content=curl_exec($c);
+        curl_close($c);
+
+        return $content;
     }
 }

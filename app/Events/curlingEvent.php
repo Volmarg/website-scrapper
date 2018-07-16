@@ -19,9 +19,38 @@ class curlingEvent
      *
      * @return void
      */
-    public function __construct()
+    public $curlData;
+
+    public function __construct($curl,$url)
     {
-        //
+
+        curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+
+        curl_setopt($curl, CURLINFO_HEADER_OUT, true);
+
+        #Optimization part
+        curl_setopt($curl, CURLOPT_ENCODING, '');
+        //set gzip, deflate or keep empty for server to detect and set supported encoding.
+
+        #Store in var fix
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        #Https fixes
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 0);
+
+        #Keep Session
+        curl_setopt($curl, CURLOPT_COOKIESESSION, true);
+        curl_setopt($curl, CURLOPT_COOKIEJAR, 'cookie-name');
+        //could be empty, but cause problems on some hosts
+        curl_setopt($curl, CURLOPT_COOKIEFILE, '/var/www/ip4.x/file/tmp');
+
+        $this->curlData=array(
+            'handler'=>$curl,
+            'url'=>$url,
+        );
+
     }
 
     /**
