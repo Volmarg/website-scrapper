@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Http\Controllers\domController;
 
 class hasContent
 {
@@ -18,11 +19,22 @@ class hasContent
      */
     public function handle($request, Closure $next,$role)
     {
-        $this->checkContent($role);
+        $dom=new domController($role);
+        $content=$dom->findElement();
+
+        $this->checkContent($content);
+        die();
         return $next($request);
     }
 
-    public function checkContent(){
+    public function checkContent($content){
+
+        $args['strLen']=1000;       #function parameter - content length
+        $args['techStack']=array('Laravel','PHP'); #function parameter = unwanted tech
+        $args['content']=$content; #function parameter holding fetched content.
+
+
+
 
     }
 }
