@@ -23,7 +23,7 @@ class hasContent
         $content=$dom->findElement();
 
         $this->checkContent($content);
-        die();
+
         return $next($request);
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Wa72\HtmlPageDom\HtmlPage;
 
 class domController extends Controller
 {
@@ -12,11 +13,17 @@ class domController extends Controller
     {
 
         $this->dom=new \domDocument;
+        $internalErrors = libxml_use_internal_errors(true);
         $this->dom->loadHTML($html);
         $this->dom->preserveWhiteSpace=false;
+        libxml_use_internal_errors($internalErrors);
     }
 
     public function findElement(){
+
+    $tag='';
+
+
 /*
  * <div v-show="showBody" class="content user-content" data-reply-body>
 <div v-pre><p><a href='/@bart'>@bart</a> I don’t really think you have a grasp of events and listeners.</p>
