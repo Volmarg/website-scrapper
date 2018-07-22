@@ -12,25 +12,20 @@ class domController extends Controller
     public function __construct($html)
     {
 
-        $this->dom=new \domDocument;
-        $internalErrors = libxml_use_internal_errors(true);
-        $this->dom->loadHTML($html);
-        $this->dom->preserveWhiteSpace=false;
-        libxml_use_internal_errors($internalErrors);
+        $this->dom = new HtmlPage($html);
     }
 
-    public function findElement(){
+    public function findElement()
+    {
 
-    $tag='';
+        // from hasContent
+        $querySelector = 'title';
+        $content=$this->dom->getBody()->html();
+        #echo $content;
+
+// output the whole HTML page
+       # echo $this->dom->save();
 
 
-/*
- * <div v-show="showBody" class="content user-content" data-reply-body>
-<div v-pre><p><a href='/@bart'>@bart</a> I don’t really think you have a grasp of events and listeners.</p>
-<p>What you’re trying to do is change the state on an entity. Events shouldn’t be manipulating state. An event is saying something happened in your application, and a listener reacts to that event happening.</p>
-<p>It’s difficult to suggest a better alternative to your problem as you’re just giving us “action” as “reject” as names. What’s an “action”? What is being accepted/rejected?</p>
-</div>
-</div>
- */
     }
 }
