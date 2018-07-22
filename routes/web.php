@@ -15,4 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/testing','curl@getContent')->name('tests');
+#Testing routes - remove them later
+Route::get('/testing','curl@showContent')->name('tests');

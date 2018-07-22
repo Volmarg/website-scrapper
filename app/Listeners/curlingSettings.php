@@ -32,7 +32,6 @@ class curlingSettings
 
         $content=curl_exec($c);
         curl_close($c);
-
         return $content;
     }
 }

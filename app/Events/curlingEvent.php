@@ -50,7 +50,6 @@ class curlingEvent
             'handler'=>$curl,
             'url'=>$url,
         );
-
     }
 
     /**
