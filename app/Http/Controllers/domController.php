@@ -15,8 +15,14 @@ class domController extends Controller
 
     public function __construct($html)
     {
+        /*
+         *Implode required as seems like event return array
+         */
 
-        $this->dom = new HtmlPage($html);
+        $this->dom = new HtmlPage(implode($html));
+
+        echo $this->dom->filter('body');
+
     }
 
     public function findElement()

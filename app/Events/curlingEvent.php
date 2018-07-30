@@ -21,12 +21,14 @@ class curlingEvent
      */
     public $curlData;
 
-    public function __construct($curl,$url)
+    public function __construct($curl, $url)
     {
+        $this->loadSettings($curl, $url);
+    }
 
+    private function loadSettings($curl, $url)
+    {
         curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
-
-        curl_setopt($curl, CURLINFO_HEADER_OUT, true);
 
         #Optimization part
         curl_setopt($curl, CURLOPT_ENCODING, '');
@@ -46,9 +48,9 @@ class curlingEvent
         //could be empty, but cause problems on some hosts
         curl_setopt($curl, CURLOPT_COOKIEFILE, '/var/www/ip4.x/file/tmp');
 
-        $this->curlData=array(
-            'handler'=>$curl,
-            'url'=>$url,
+        $this->curlData = array(
+            'handler' => $curl,
+            'url' => $url,
         );
     }
 

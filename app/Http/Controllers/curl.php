@@ -14,7 +14,6 @@ class curl extends Controller
     public function __construct()
     {
         $this->content=$this->getContent();
-        #$this->middleware('hasContent:' . $this->content);
     }
 
     public function getContent()
@@ -22,7 +21,7 @@ class curl extends Controller
         #get content of the page via curling event, and pass it to public var so it can be used
         #by middleware or inside this class
 
-        $url = 'https://laracasts.com/discuss/channels/general-discussion/pass-data-from-listener-to-event';
+        $url = 'http://www.heise.de';
         return event(new curlingEvent(curl_init(), $url));
     }
 
@@ -30,9 +29,10 @@ class curl extends Controller
     {
 
         #This part is only for tests
-        #$dom=new domController($this->content);
-        #$matchedContent = $dom->findElement();
+        $dom=new domController($this->content);
+        $pageContent=$dom->findElement();
+       #$matchedContent = $dom->findElement();
 
-        dd($this->content);
+
     }
 }
