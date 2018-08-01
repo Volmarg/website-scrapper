@@ -46,7 +46,7 @@ class curlingListener
     private function getByFileContent($url)
     {
 
-        return file_get_contents('http://www.heise.de');
+        return file_get_contents('https://www.indeed.nl/vacature-bekijken?jk=c33fcd6ba68cf3f3&from=myjobs&tk=1cjp24o429sgtek0');
     }
 
 }

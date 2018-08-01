@@ -21,20 +21,34 @@ class domController extends Controller
 
         $this->dom = new HtmlPage(implode($html));
 
-        echo $this->dom->filter('body');
+        // filtering by query Selector works well
+        $container = $this->dom->filter('#job_summary');
+
+        //search for given matches
+        # this got to be input or pre programmed matches
+        $emailPattern = "#[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})#ims";
+        $test = '#(.*)@(.*)#ims';
+        preg_match($emailPattern, $container, $matched);
+
+        dd($matched);
 
     }
 
-    public function findElement()
+    private function findElement($selector)
     {
 
-        // from hasContent
-        $querySelector = 'title';
-        $content = $this->dom->getBody()->html();
+        return $this->dom->filter($selector);
+    }
 
+    private function findPattern($args)
+    {
+        preg_match("#" . $args['pattern'] . "#{$args['flags']}", $args['container'], $matched);
 
-        return $content;
+        return $matched;
+    }
 
+    private function filterMatchedPattern(){
 
     }
+
 }
