@@ -30,16 +30,17 @@ class domController extends Controller
         $test = '#(.*)@(.*)#ims';
         preg_match($emailPattern, $container, $matched);
 
-        dd($matched);
+        #dd($matched);
 
     }
 
-    private function findElement($selector)
-    {
+    /*
+        private function findElement($selector)
+        {
 
-        return $this->dom->filter($selector);
-    }
-
+            return $this->dom->filter($selector);
+        }
+    */
     private function findPattern($args)
     {
         preg_match("#" . $args['pattern'] . "#{$args['flags']}", $args['container'], $matched);
@@ -47,7 +48,8 @@ class domController extends Controller
         return $matched;
     }
 
-    private function filterMatchedPattern(){
+    private function filterMatchedPattern()
+    {
 
     }
 

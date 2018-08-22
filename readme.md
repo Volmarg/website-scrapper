@@ -17,6 +17,8 @@
 <li>PHP storm,</li>
 <li>Xdebug</li>
 <li>Composer</li>
+<li>Wrike,</li>
+<li>Mindjet,</li>
 <li>Larvel DebugBar,</li>
 </ul>
 

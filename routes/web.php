@@ -12,8 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('inputs');
+})->name('index');
+
+Route::post('/','curl@getContet')->name('curler');
+
 
 #Testing routes - remove them later
-Route::get('/testing','curl@showContent')->name('tests');
+Route::get('/testing', 'curl@showContent')->name('tests');

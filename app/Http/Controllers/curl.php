@@ -31,8 +31,8 @@ class curl extends Controller
     {
 
         #This part is only for tests
-        $dom=new domController($this->content);
-        $pageContent=$dom->findElement();
+        #$dom=new domController($this->content);
+        #$pageContent=$dom->findElement();
        #$matchedContent = $dom->findElement();
 
 

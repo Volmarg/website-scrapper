@@ -1,0 +1,13 @@
+// Inputs
+@mixin flex_justify{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+}
+
+
+.inputs_component form{
+  @include flex_justify;
+}
+
+// Outputs
