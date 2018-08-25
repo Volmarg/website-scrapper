@@ -33,4 +33,4 @@
         crossorigin="anonymous"></script>
 
 <!-- JS my scripts !-->
-<script src="/js/loadAllScripts.js"></script>
+<script src="/js/forms_bundle.js"></script>
