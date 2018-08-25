@@ -14,11 +14,13 @@
 <body>
 <div class="flex-center position-ref full-height">
 
-    <pre>Yes - this was inherited from main.blade;</pre>
 
     @yield('container')
     @yield('jsFooter')
 
 </div>
+<footer>
+    @include('templates/footerJsScripts')
+</footer>
 </body>
 </html>

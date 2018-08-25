@@ -8,3 +8,11 @@
       flex-wrap: nowrap;
 }
 
+.inputs_component form label {
+  display: block;
+}
+
+.inputs_component form .hiddenElement {
+  display: none;
+}
+

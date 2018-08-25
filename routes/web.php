@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('inputs');
-})->name('index');
+Route::get('/', 'InputForms@setFormsAttributes')->name('index');
 
 Route::post('/','curl@getContet')->name('curler');
 
