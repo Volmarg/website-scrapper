@@ -14,6 +14,8 @@
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
+<!-- texttext js plugin !-->
+<link rel="stylesheet" href="js/libs/texttext/texttext_tags.css"/>
 <!-- default external js !-->
 <!-- bootstrap !-->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
@@ -31,6 +33,8 @@
         src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
         integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
         crossorigin="anonymous"></script>
+<!-- texttext js plugin !-->
+<script src="js/libs/texttext/texttext_tags.js"></script>
 
 <!-- JS my scripts !-->
 <script src="/js/forms_bundle.js"></script>

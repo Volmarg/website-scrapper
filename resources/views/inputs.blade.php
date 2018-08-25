@@ -13,24 +13,24 @@
         <b>Acceptable Keywords</b>
         <div class="form-group">
             {!! Form::label ('acceptKeywordsBody','Enter acceptable keywords for body') !!}
-            {!! Form::textarea('acceptKeywordsBody') !!}
+            {!! Form::textarea('acceptKeywordsBody','',['rows'=>'1']) !!}
         </div>
         <div class="form-group">
             {!! Form::label ('acceptKeywordsOther','Enter acceptable keywords for other page element') !!}
-            {!! Form::textarea('acceptKeywordsOther') !!}
+            {!! Form::textarea('acceptKeywordsOther','',['rows'=>'1']) !!}
         </div>
         <b>Rejectable Keywords</b>
         <div class="form-group">
             {!! Form::label ('rejectKeywordsBody','Enter acceptable keywords for body') !!}
-            {!! Form::textarea('rejectKeywordsBody') !!}
+            {!! Form::textarea('rejectKeywordsBody','',['rows'=>'1']) !!}
         </div>
         <div class="form-group">
             {!! Form::label ('rejectKeywordsOther','Enter acceptable keywords for other page element') !!}
-            {!! Form::textarea('rejectKeywordsOther') !!}
+            {!! Form::textarea('rejectKeywordsOther','',['rows'=>'1']) !!}
         </div>
         <div class="form-group">
             {!! Form::label('links','Enter links') !!}
-            {!! Form::textarea('links') !!}
+            {!! Form::textarea('links','',['rows'=>'1']) !!}
         </div>
     @endslot
 
