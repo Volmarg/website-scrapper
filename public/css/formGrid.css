@@ -1,0 +1,18 @@
+.inputs_component form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+}
+
+.inputs_component form label {
+  display: block;
+}
+
+.inputs_component form .hiddenElement {
+  display: none;
+}
+

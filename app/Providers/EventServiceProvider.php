@@ -14,7 +14,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'App\Events\curlingEvent' => [
-            'App\Listeners\curlingSettings',
+            'App\Listeners\curlingListener',
         ],
     ];
 

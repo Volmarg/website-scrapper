@@ -11,8 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'InputForms@setFormsAttributes')->name('index');
 
-Route::get('/testing','curl@getContent')->name('tests');
+Route::post('/','curl@getContet')->name('curler');
+
+
+#Testing routes - remove them later
+Route::get('/testing', 'curl@showContent')->name('tests');
