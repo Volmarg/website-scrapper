@@ -13,7 +13,9 @@
 
 Route::get('/', 'InputForms@setFormsAttributes')->name('index');
 
-Route::post('/','curl@getContet')->name('curler');
+#Route::post('/','curl@getContet')->name('curler');
+
+Route::post('/fetch-form','FormInput\FormFetch@printData')->name('formFetcher');
 
 
 #Testing routes - remove them later

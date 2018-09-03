@@ -6,7 +6,7 @@
 
     @input
     @slot('up')
-        {!! Form::open(['route'=>'curler']) !!}
+        {!! Form::open(['route'=>'formFetcher']) !!}
     @endslot
 
     @slot('left')
@@ -61,6 +61,7 @@
     @endslot
 
     @slot('down')
+        {!! Form::submit('submit') !!}
         {!! Form::close() !!}
     @endslot
 

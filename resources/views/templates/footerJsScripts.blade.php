@@ -28,7 +28,7 @@
 
     $('#links').textext({
         plugins : 'tags prompt focus autocomplete',
-        prompt : 'Add one...',
+        prompt : 'Add link...',
     });
 
 </script>
