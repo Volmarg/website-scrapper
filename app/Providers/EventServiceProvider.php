@@ -13,9 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\curlingEvent' => [
-            'App\Listeners\curlingListener',
-        ],
+        'App\Events\CurlingEvent' => ['App\Listeners\CurlingListener'],
+        'App\Events\CurlHeaderEvent'=>['App\Listeners\CurlHeaderListener']
     ];
 
     /**

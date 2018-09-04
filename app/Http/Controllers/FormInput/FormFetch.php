@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers\FormInput;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ProcessControll;
 
 
 class FormFetch
@@ -18,6 +19,9 @@ class FormFetch
     public function getInput(Request $request){
         $this->requestToArray($request);
         $this->inputsToArrays();
+
+        $process_controll=new ProcessControll($this->request_array);
+        $process_controll->start();
     }
 
     public function requestToArray($request){
