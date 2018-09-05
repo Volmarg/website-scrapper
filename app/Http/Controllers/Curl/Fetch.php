@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Curl;
 
-use App\Http\Controllers\PageContentFetch;
+use App\Http\Controllers\Curl\PageContentFetch;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Curl\PageHeadersFetch;
@@ -12,7 +12,7 @@ class Fetch extends Controller
     public $content=array(); #link and content
     public $original_headers=array(),$extraced_headers=array(); #link and headers
     public $links;
-    public $test=array();
+    public $extracted_contents=array();
 
     public function __construct($links)
     {
@@ -30,11 +30,19 @@ class Fetch extends Controller
             array_push($this->extraced_headers, $headers_fetch->getFinallRedirect($one_link));
         }
 
+        return $this->extraced_headers;
 
     }
 
-    protected function getContent(){
-        #point PageContent class
+    public function getContent(){
+
+        $content_fetch=new PageContentFetch();
+        foreach($this->extraced_headers as $one_page){
+            $content_fetch->getContent($one_page['target_link']);
+            array_push($this->extracted_contents,array('content'=>$content_fetch->getContent($one_page['target_link']),'link'=>$one_page['target_link']));
+        }
+
+        return $this->extracted_contents;
     }
 
 

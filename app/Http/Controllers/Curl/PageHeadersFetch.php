@@ -9,8 +9,6 @@ use App\Events\CurlHeaderEvent;
 class PageHeadersFetch extends Controller
 {
 
-
-
     protected function extractCode($headers){
 
         $code_regex="#HTTP/1\.1 ([0-9]+)#";
@@ -27,7 +25,9 @@ class PageHeadersFetch extends Controller
     protected function isPageRedirected($code=null){
         #checking header status - pass only if 200 ok
         if($code=="200" || $code==200){
-            return  true;
+            return  'ok: 200';
+        }elseif($code!="301" && $code!="302" && $code!="200"){
+            return 'error: '.$code;
         }else{
             return false;
         }
@@ -38,15 +38,17 @@ class PageHeadersFetch extends Controller
         $original_link=$link;
         $code=$this->extractCode(event(new CurlHeaderEvent($link)));
 
-        while(!$this->isPageRedirected($code)){
+        while(!(bool)$this->isPageRedirected($code)){
             $link=$this->extractLink(event(new CurlHeaderEvent($link)));
             $code=$this->extractCode(event(new CurlHeaderEvent($link)));
         }
 
         return array(
             'original_link'=>$original_link,
-            'target_link'=>$link
+            'target_link'=>$link,
+            'code'=>$code
         );
 
     }
+
 }
