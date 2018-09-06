@@ -13,13 +13,38 @@ class Markers
 {
     #This class is used for marking found keywords in case user would like to display text with found keywords
 
-    private $rejected_style='border:2px red solid';
-    private $accepted_style='border:2px green solid';
-    static $test_style='border:2px blue solid';
+    static $common_style = 'weight:bold;padding:1px;display:inline-block;';
+    static $rejected_style = 'border:2px red solid;';
+    static $accepted_style = 'border:2px green solid;';
+    static $default_style = 'border:2px blue solid;';
 
-    public static function colorElement($keyword,$content){
+
+    public static function colorElement($content, $keyword, $keyword_type_name)
+    {
+        $style = self::$default_style;
+
+        switch ($keyword_type_name) {
+            case (bool)strstr($keyword_type_name, 'reject'):
+                $style = self::$rejected_style;
+                break;
+            case (bool)strstr($keyword_type_name, 'accept'):
+                $style = self::$accepted_style;
+                break;
+
+        }
+
         #consider using preg_ to color all KW on page
-        return str_replace($keyword,"<span style='".self::$test_style."'>".$keyword."</span>",$content);
+        return str_ireplace($keyword, "<span style='" . $style . "'>" . $keyword . "</span>", $content);
 
     }
+
+    public static function init_styles()
+    {
+        self::$rejected_style .= self::$common_style;
+        self::$accepted_style .= self::$common_style;
+        self::$default_style .= self::$common_style;
+    }
 }
+
+$m = new Markers();
+$m::init_styles();
