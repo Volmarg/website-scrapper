@@ -17,6 +17,7 @@ class FormFetch
 
 
     public function getInput(Request $request){
+
         $this->requestToArray($request);
         $this->inputsToArrays();
 
