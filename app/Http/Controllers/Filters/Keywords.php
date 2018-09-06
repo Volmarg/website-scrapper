@@ -43,6 +43,9 @@ class Keywords extends Controller
             }
 
         }
+    
+        #test
+        die();
     }
 
     protected function checkThisContentType($type_of_content)
@@ -69,7 +72,7 @@ class Keywords extends Controller
 
         #tests
         echo $type_of_content;
-        die();
+
     }
 
     protected function applyMarkers($keyword, $content,$keyword_type_name)

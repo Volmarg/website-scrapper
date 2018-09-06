@@ -25,7 +25,6 @@ class ProcessControll extends Controller
         $contents=$curl_fetch->getContent();
         $this->extracted_content=$dom->initializeDOM($contents);
 
-
         $filters=new Filters($this->extracted_content,$this->request);
         $filters->filter();
 
