@@ -10,8 +10,8 @@ use App\Http\Controllers\Filters\Filters;
 class Keywords extends Controller
 {
 
-    public $found_rejected_keywords = array(), $found_accepted_keywords = array();
     public $keywords_to_check = array();
+    public $found_keywords=array(); #TODO - add found keywords into this array so it will be later passed to rules
 
     public function __construct($request)
     {
@@ -26,59 +26,60 @@ class Keywords extends Controller
 
     public function searchKeywords($original_content)
     {
-        $this->checkEachContentType($original_content);
-
+        return $this->checkEachContentType($original_content);
     }
 
     protected function checkEachContentType($content)
     {
 
+        $marked_content_all_pages = array();
+        $marked_content_one_page = array();
+
         foreach ($content as $one_page_content) {
             foreach ($one_page_content as $key => $type_of_content) {
 
                 if (!empty($type_of_content)) {
-                    $this->checkThisContentType($type_of_content);
-
+                    $type_of_content = $this->checkThisContentType($type_of_content);
+                    $marked_content_one_page[$key] = $type_of_content;
                 }
             }
 
+            array_push($marked_content_all_pages, $marked_content_one_page);
         }
-    
-        #test
-        die();
+
+        return $marked_content_all_pages;
     }
 
     protected function checkThisContentType($type_of_content)
-    { //make it more flexible so it would check all KW types at once
+    {
+        $marked_content = array();
 
         foreach ($this->keywords_to_check as $keyword_type_name => $keywords_type) {
+
             foreach ($keywords_type as $one_keyword) {
 
                 if (!empty($keywords_type) && !empty($type_of_content)) {
 
                     $result = stristr($type_of_content, $one_keyword);
                     if ($result) {
-                        $type_of_content = $this->applyMarkers($type_of_content, $one_keyword,$keyword_type_name);
-                        array_push($this->found_accepted_keywords, $one_keyword);
+                        $type_of_content = $this->applyMarkers($type_of_content, $one_keyword, $keyword_type_name);
                     }
 
                 } else {
-                    #add here adding info about empty content
+                    $type_of_content = NULL;
                 }
 
             }
         }
 
-
-        #tests
-        echo $type_of_content;
+        return $type_of_content;
 
     }
 
-    protected function applyMarkers($keyword, $content,$keyword_type_name)
+    protected function applyMarkers($keyword, $content, $keyword_type_name)
     {
         #change it to be more elastic according to changes required in checkThisContentType
-        return Markers::colorElement($keyword, $content,$keyword_type_name);
+        return Markers::colorElement($keyword, $content, $keyword_type_name);
     }
 
 }

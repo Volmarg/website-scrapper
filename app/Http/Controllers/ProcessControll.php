@@ -26,8 +26,22 @@ class ProcessControll extends Controller
         $this->extracted_content=$dom->initializeDOM($contents);
 
         $filters=new Filters($this->extracted_content,$this->request);
-        $filters->filter();
+        $filtered_content=$filters->filter();
+        $filtered_content=$this->rebindLinks($filtered_content);
 
+        #test - remove
+        dd($filtered_content);
+
+    }
+
+    protected function rebindLinks($filtered_content){
+
+        for($x=0;$x<=count($this->request['links'])-1;$x++){
+            $filtered_content[$x]['link']=$this->request['links'][$x];
+        }
+
+
+        return $filtered_content;
     }
 
 

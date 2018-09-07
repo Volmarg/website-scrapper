@@ -18,11 +18,13 @@ class Filters extends Controller
     }
 
     public function filter(){
-        $this->filterByKeywords();
+        $filtered_content=$this->filterByKeywords();
+
+        return $filtered_content;
     }
 
     protected function filterByKeywords(){
-        $this->keywords->searchKeywords($this->original_content);
+        return $this->keywords->searchKeywords($this->original_content);
 
     }
 }
