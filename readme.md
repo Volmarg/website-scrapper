@@ -14,13 +14,26 @@
 
 <h2>Used tools</h2>
 <ul>
-<li>PHP storm,</li>
-<li>Xdebug</li>
-<li>Composer</li>
-<li>Wrike,</li>
-<li>Mindjet,</li>
-<li>Larvel DebugBar,</li>
+<li>Windows
+           <ul>
+               <li>PHP storm,</li>
+               <li>Xdebug</li>
+               <li>Composer</li>
+               <li>Wrike,</li>
+               <li>Mindjet,</li>
+               <li>Vagrant,</li>
+               <li>Larvel DebugBar,</li>
+           </ul>
+</li>
+
+<li>Linux
+           <ul>
+           <li>Docker,</li>
+           </ul>
+</li>
+
 </ul>
+
 
 <h2>Used designs</h2>
 <ul>
@@ -29,7 +42,11 @@
 <h2>Tech Stack</h2>
 <ul>
 <li>PHP,</li>
-<li>Laravel 5.5,</li>
+<li>Laravel 5.6,
+    <ul>
+        <li>Dump Server from 5.7 </li>
+    </ul>
+</li>
 <li>CSS,</li>
 <li>SCSS,</li>
 <li>JS,</li>

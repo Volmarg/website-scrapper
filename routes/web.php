@@ -15,8 +15,18 @@ Route::get('/', 'InputForms@setFormsAttributes')->name('index');
 
 #Route::post('/','curl@getContet')->name('curler');
 
-Route::post('/fetch-form','FormInput\FormFetch@getInput')->name('formFetcher');
+Route::post('/fetch-form', 'FormInput\FormFetch@getInput')->name('formFetcher');
 
 
 #Testing routes - remove them later
-Route::get('/testing', 'curl@showContent')->name('tests');
+Route::get('/testing', function () {
+
+    dump(array(
+        1 => 2,
+        2 => 3
+    ));
+
+    return [
+        'aaa' => 'bbb'
+    ];
+})->name('tests');

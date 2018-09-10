@@ -11,7 +11,7 @@ class Keywords extends Controller
 {
 
     public $keywords_to_check = array();
-    public $found_keywords=array(); #TODO - add found keywords into this array so it will be later passed to rules
+    public $found_keywords = array(); #TODO - add found keywords into this array so it will be later passed to rules
 
     public function __construct($request)
     {
@@ -60,8 +60,16 @@ class Keywords extends Controller
 
                 if (!empty($keywords_type) && !empty($type_of_content)) {
 
-                    $result = stristr($type_of_content, $one_keyword);
+                    $result = stristr(strip_tags($type_of_content), $one_keyword);
                     if ($result) {
+
+                        if (!array_key_exists($keyword_type_name, $this->found_keywords)) {
+                            $this->found_keywords[$keyword_type_name] = array($one_keyword);
+                        } else {
+                            array_push($this->found_keywords[$keyword_type_name], $one_keyword);
+                        }
+
+
                         $type_of_content = $this->applyMarkers($type_of_content, $one_keyword, $keyword_type_name);
                     }
 
