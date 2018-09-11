@@ -22,5 +22,7 @@
 <footer>
     @include('templates/footerJsScripts')
 </footer>
+
+@include('templates/defaultFooter')
 </body>
 </html>

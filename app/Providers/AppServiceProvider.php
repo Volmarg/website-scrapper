@@ -14,7 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Blade::component('components/inputs','input');
+        Blade::component('components/inputs', 'input');
+        Blade::component('components/output', 'output');
     }
 
     /**

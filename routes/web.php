@@ -21,12 +21,5 @@ Route::post('/fetch-form', 'FormInput\FormFetch@getInput')->name('formFetcher');
 #Testing routes - remove them later
 Route::get('/testing', function () {
 
-    dump(array(
-        1 => 2,
-        2 => 3
-    ));
-
-    return [
-        'aaa' => 'bbb'
-    ];
+return view('test');
 })->name('tests');

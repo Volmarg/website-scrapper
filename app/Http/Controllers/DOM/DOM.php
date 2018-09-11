@@ -36,6 +36,7 @@ class DOM extends Controller
                 array(
                  'main'=>$extractors->mainQuerySelector(),
                  'other'=>$extractors->otherQuerySelector(),
+                 'title'=>$extractors->titleExtraction(),
                      ));
         }
 

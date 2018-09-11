@@ -27,10 +27,11 @@ class RejectionAcceptanceRules extends Controller
 
     public function apply()
     {
+
         $rules_statuses = array();
-        foreach ($this->filtered_keywords as $one_page_filtered_keywords) {
-            $rejection_status = $this->rejection_rules->checkRejection($one_page_filtered_keywords);
-            $acceptance_status = $this->acceptance_rules->checkAcceptance($one_page_filtered_keywords);
+        for ($x = 0; $x <= count($this->filtered_content) - 1; $x++) {
+            $rejection_status = $this->rejection_rules->checkRejection($this->filtered_keywords);
+            $acceptance_status = $this->acceptance_rules->checkAcceptance($this->filtered_keywords);
 
             array_push($rules_statuses, $this->checkFinalStatus($rejection_status, $acceptance_status));
         }
@@ -42,6 +43,6 @@ class RejectionAcceptanceRules extends Controller
 
     private function checkFinalStatus($rejection_status, $acceptance_status)
     {
-        return ($acceptance_status && !$rejection_status ? true : false);
+        return ($acceptance_status && !$rejection_status ? 'accepted' : 'rejected');
     }
 }

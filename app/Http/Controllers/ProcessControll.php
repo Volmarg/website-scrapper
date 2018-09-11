@@ -7,6 +7,7 @@ use App\Http\Controllers\Curl\Fetch;
 use App\Http\Controllers\DOM\DOM;
 use App\Http\Controllers\Filters\Filters;
 use App\Http\Controllers\Rules\RejectionAcceptanceRules;
+use App\Http\Controllers\Output;
 
 class ProcessControll extends Controller
 {
@@ -39,7 +40,10 @@ class ProcessControll extends Controller
         $accept_reject_statuses = $rejection_acceptance_rules->apply();
 
         $filtered_content = $this->bindStatus($filtered_content, $accept_reject_statuses);
-        dd($filtered_content);
+
+
+        $output = new Output($filtered_content);
+        $output->renderOutput();
     }
 
     protected function bindLinks($filtered_content)
@@ -54,7 +58,8 @@ class ProcessControll extends Controller
 
     protected function bindStatus($filtered_content, $accept_reject_statuses)
     {
-        for ($x = 0; $x <= count($this->request['links']) - 1; $x++) {
+
+        for ($x = 0; $x <= count($accept_reject_statuses) - 1; $x++) {
             $filtered_content[$x]['status'] = $accept_reject_statuses[$x];
         }
 

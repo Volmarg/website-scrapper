@@ -14,9 +14,9 @@ class Markers
     #This class is used for marking found keywords in case user would like to display text with found keywords
 
     static $common_style = 'weight:bold;padding:1px;display:inline-block;';
-    static $rejected_style = 'border:2px red solid;';
-    static $accepted_style = 'border:2px green solid;';
-    static $default_style = 'border:2px blue solid;';
+    static $rejected_style = 'border:6px red solid;';
+    static $accepted_style = 'border:6px green solid;';
+    static $default_style = 'border:6px blue solid;';
 
 
     public static function colorElement($content, $keyword, $keyword_type_name)
