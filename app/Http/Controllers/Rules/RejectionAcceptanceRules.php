@@ -19,9 +19,8 @@ class RejectionAcceptanceRules extends Controller
         $this->rejection_rules = new Rejection();
         $this->acceptance_rules = new Acceptance();
         $this->manual_action_rules = new Manual();
-
         $this->filtered_content = $filtered_content;
-        $this->filtered_keywords = $filtered_keywords->found_keywords;
+        $this->filtered_keywords = $filtered_keywords->all_pages_found_keywords;
     }
 
 

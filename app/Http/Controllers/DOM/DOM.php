@@ -13,37 +13,44 @@ class DOM extends Controller
 {
 
     public $dom;
-    public $queries=array();
-    public $extracted_content=array();
+    public $queries = array();
+    public $extracted_content = array();
+    public $extracted_titles = array();
 
     public function __construct($request)
     {
-        $this->query_selectors=array(
-            'main'=>$request['querySelectorBody'],
-            'other'=>$request['querySelectorOther']
+        $this->query_selectors = array(
+            'main' => $request['querySelectorBody'],
+            'other' => $request['querySelectorOther']
         );
 
     }
 
-    public function initializeDOM($content){
+    public function initializeDOM($content)
+    {
 
-        foreach($content as $one_page){
+        foreach ($content as $one_page) {
 
-            $this->dom=new HtmlPage(implode($one_page['content']));
-            $extractors=new ContentExtractors($this->query_selectors,$this->dom);
+            $this->dom = new HtmlPage(implode($one_page['content']));
+            $extractors = new ContentExtractors($this->query_selectors, $this->dom);
 
+            #TODO: change this return array, since no array in array is required now
             array_push($this->extracted_content,
                 array(
-                 'main'=>$extractors->mainQuerySelector(),
-                 'other'=>$extractors->otherQuerySelector(),
-                 'title'=>$extractors->titleExtraction(),
-                     ));
-        }
+                    'dom_content' => array(
+                        'main' => $extractors->mainQuerySelector(),
+                        'other' => $extractors->otherQuerySelector(),
+                    ),
+                ));
 
-        return $this->extracted_content;
+            array_push($this->extracted_titles, array('title' => $extractors->titleExtraction()));
+        }
+        return array(
+            'content' => $this->extracted_content,
+            'title' => $this->extracted_titles
+        );
 
     }
-
 
 
 }
