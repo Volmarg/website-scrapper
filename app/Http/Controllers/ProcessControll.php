@@ -32,7 +32,7 @@ class ProcessControll extends Controller
 
         $filters = new Filters($this->extracted_content, $this->request);
         $filters_result = $filters->filter();
-        #BUG: title array index is being lost somewhere here
+
 
         $filtered_content = $filters_result['filtered_content'];
         $filtered_keywords = $filters_result['keywords'];
@@ -46,7 +46,7 @@ class ProcessControll extends Controller
         $filtered_content = $this->bindKeywords($filtered_content, $filtered_keywords->all_pages_found_keywords);
 
         $filtered_content = $this->bindTitles($filtered_content);
-        var_dump($filtered_content);
+
         $output = new Output($filtered_content);
         $output->renderOutput();
     }
