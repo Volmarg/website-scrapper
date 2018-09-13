@@ -13,7 +13,7 @@
         <b>Acceptable Keywords</b>
         <div class="form-group">
             {!! Form::label ('acceptKeywordsBody','Enter acceptable keywords for body') !!}
-            {!! Form::textarea('acceptKeywordsBody','',['rows'=>'1']) !!}
+            {!! Form::textarea('acceptKeywordsBody','')!!}
         </div>
         <div class="form-group">
             {!! Form::label ('acceptKeywordsOther','Enter acceptable keywords for other page element') !!}
@@ -30,7 +30,7 @@
         </div>
         <div class="form-group">
             {!! Form::label('links','Enter single links') !!}
-            {!! Form::textarea('links','',['rows'=>'1']) !!}
+            {!! Form::textarea('links','') !!}
         </div>
         <b> Pagination</b>
         <div class="form-group">

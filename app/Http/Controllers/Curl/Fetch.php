@@ -38,9 +38,10 @@ class Fetch extends Controller
 
         $content_fetch=new PageContentFetch();
         foreach($this->extraced_headers as $one_page){
-            $content_fetch->getContent($one_page['target_link']);
+
             array_push($this->extracted_contents,array('content'=>$content_fetch->getContent($one_page['target_link']),'link'=>$one_page['target_link']));
         }
+
 
         return $this->extracted_contents;
     }

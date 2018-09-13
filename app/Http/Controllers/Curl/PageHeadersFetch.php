@@ -4,50 +4,63 @@ namespace App\Http\Controllers\Curl;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Events\CurlHeaderEvent;
+use App\Events\GetHeaderEvent;
 
 class PageHeadersFetch extends Controller
 {
 
-    protected function extractCode($headers){
+    protected function extractHeaders($headers)
+    {
 
-        $code_regex="#HTTP/1\.1 ([0-9]+)#";
-        preg_match($code_regex,$headers[0],$code_match);
-        return $code_match[1];
-    }
+        $location = '';
+        $location_lock = false;
 
-    protected function extractLink($headers){
-        $link_regex="@^Location:(.*)<br />@Usmi";
-        preg_match($link_regex,nl2br($headers[0]),$link_match);
-        return trim($link_match[1]);
-    }
+        $header_code = '';
+        $header_lock = false;
 
-    protected function isPageRedirected($code=null){
-        #checking header status - pass only if 200 ok
-        if($code=="200" || $code==200){
-            return  'ok: 200';
-        }elseif($code!="301" && $code!="302" && $code!="200"){
-            return 'error: '.$code;
-        }else{
-            return false;
-        }
-    }
+        $array_reverse = array_reverse($headers[0]);
 
-    public function getFinallRedirect($link){
-        #Geting content of each one target page untill we get header 200
-        $original_link=$link;
-        $code=$this->extractCode(event(new CurlHeaderEvent($link)));
+        foreach ($array_reverse as $num => $one_header) {
 
-        while(!(bool)$this->isPageRedirected($code)){
-            $link=$this->extractLink(event(new CurlHeaderEvent($link)));
-            $code=$this->extractCode(event(new CurlHeaderEvent($link)));
+            switch ($one_header) {
+                case (bool)strstr($one_header, 'Location'):
+                    if (!$location_lock) {
+                        $location = trim(str_replace('Location:', '', $array_reverse[$num]));
+                        $location_lock = true;
+                    }
+                    break;
+
+                case strstr($one_header, 'HTTP/1.1'):
+                    if (!$header_lock) {
+                        $header_code = $array_reverse[$num];
+                        $header_lock = true;
+                    }
+                    break;
+            }
+
+            if ($header_lock && $location_lock) {
+                break;
+            }
+
         }
 
         return array(
-            'original_link'=>$original_link,
-            'target_link'=>$link,
-            'code'=>$code
+            'code' => $header_code,
+            'location' => $location
         );
+    }
+
+    public function getFinallRedirect($link)
+    {
+
+        $extracted_headers = $this->extractHeaders(event(new GetHeaderEvent($link)));
+
+        return array(
+            'original_link' => $link,
+            'target_link' => $extracted_headers['location'],
+            'code' => $extracted_headers['code']
+        );
+
 
     }
 

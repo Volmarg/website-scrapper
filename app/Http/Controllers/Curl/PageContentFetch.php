@@ -14,7 +14,9 @@ class PageContentFetch extends Controller
     }
 
     public function getContent($link){
+
         $content=event(new CurlContentEvent($link));
+
         return $content;
     }
 

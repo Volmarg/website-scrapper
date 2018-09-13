@@ -10,7 +10,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class CurlHeaderEvent
+class GetHeaderEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -24,27 +24,9 @@ class CurlHeaderEvent
 
     public function __construct($url)
     {
-        $this->headers=$this->initializeCurl($url);
+
+        $this->headers = get_headers($url);
     }
-
-    protected function initializeCurl($url){
-
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, $url);
-
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 1); #INFO: gets no data if NOBODY is off
-        curl_setopt($ch, CURLOPT_NOBODY, 1); #INFO: causes 405 header error
-
-        $headers = curl_exec($ch);
-        curl_close($ch);
-
-        return $headers;
-    }
-
-
-
 
     /**
      * Get the channels the event should broadcast on.

@@ -11,6 +11,8 @@ use App\Http\Controllers\Output;
 
 class ProcessControll extends Controller
 {
+    #TODO: Remove remaining old Listeners/Events from curl
+
     public $request, $headers, $contents, $extracted_content, $extracted_titles;
 
     public function __construct($request)
@@ -26,6 +28,7 @@ class ProcessControll extends Controller
 
         $curl_fetch->getHeaders();
         $contents = $curl_fetch->getContent();
+
         $extracted_data = $dom->initializeDOM($contents);
         $this->extracted_content = $extracted_data['content'];
         $this->extracted_titles = $extracted_data['title'];
@@ -37,10 +40,13 @@ class ProcessControll extends Controller
         $filtered_content = $filters_result['filtered_content'];
         $filtered_keywords = $filters_result['keywords'];
 
+
         $filtered_content = $this->bindLinks($filtered_content);
 
         $rejection_acceptance_rules = new RejectionAcceptanceRules($filtered_content, $filtered_keywords);
         $accept_reject_statuses = $rejection_acceptance_rules->apply();
+
+
         #TODO: make one function Rebinder and add all bindings into it, think about other class maybe? Can I move upper binder below too?
         $filtered_content = $this->bindStatus($filtered_content, $accept_reject_statuses);
         $filtered_content = $this->bindKeywords($filtered_content, $filtered_keywords->all_pages_found_keywords);

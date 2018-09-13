@@ -45,6 +45,8 @@ class DOM extends Controller
 
             array_push($this->extracted_titles, array('title' => $extractors->titleExtraction()));
         }
+
+
         return array(
             'content' => $this->extracted_content,
             'title' => $this->extracted_titles

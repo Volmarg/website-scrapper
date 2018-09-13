@@ -25,6 +25,7 @@ class CurlContentEvent
     public function __construct($url)
     {
         $this->page_content=$this->initialize_curl($url);
+
     }
 
     private function initialize_curl($url){
@@ -54,7 +55,6 @@ class CurlContentEvent
 
         $content = curl_exec($curl);
         curl_close($curl);
-
         return $content;
     }
 

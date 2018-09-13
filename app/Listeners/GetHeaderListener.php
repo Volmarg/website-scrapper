@@ -2,11 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\CurlContentEvent;
+use App\Events\GetHeaderEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CurlContentListener
+class GetHeaderListener
 {
     /**
      * Create the event listener.
@@ -21,12 +21,11 @@ class CurlContentListener
     /**
      * Handle the event.
      *
-     * @param  CurlContentEvent  $event
+     * @param  GetHeaderEvent  $event
      * @return void
      */
-    public function handle(CurlContentEvent $event)
+    public function handle(GetHeaderEvent $event)
     {
-     
-        return $event->page_content;
+        return $event->headers;
     }
 }
