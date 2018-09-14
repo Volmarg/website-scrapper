@@ -11,7 +11,6 @@ class PageHeadersFetch extends Controller
 
     protected function extractHeaders($headers)
     {
-
         $location = '';
         $location_lock = false;
 
@@ -57,7 +56,7 @@ class PageHeadersFetch extends Controller
 
         return array(
             'original_link' => $link,
-            'target_link' => $extracted_headers['location'],
+            'target_link' => (empty($extracted_headers['location']) ? $link : $extracted_headers['location']),
             'code' => $extracted_headers['code']
         );
 

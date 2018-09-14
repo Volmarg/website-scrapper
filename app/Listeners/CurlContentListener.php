@@ -26,7 +26,7 @@ class CurlContentListener
      */
     public function handle(CurlContentEvent $event)
     {
-     
+
         return $event->page_content;
     }
 }

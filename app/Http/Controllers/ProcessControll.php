@@ -12,6 +12,8 @@ use App\Http\Controllers\Output;
 class ProcessControll extends Controller
 {
     #TODO: Remove remaining old Listeners/Events from curl
+    #TODO: make one function Rebinder and add all bindings into it
+    #TODO: REFRACTOR THIS, it's getting messy
 
     public $request, $headers, $contents, $extracted_content, $extracted_titles;
 
@@ -47,7 +49,7 @@ class ProcessControll extends Controller
         $accept_reject_statuses = $rejection_acceptance_rules->apply();
 
 
-        #TODO: make one function Rebinder and add all bindings into it, think about other class maybe? Can I move upper binder below too?
+
         $filtered_content = $this->bindStatus($filtered_content, $accept_reject_statuses);
         $filtered_content = $this->bindKeywords($filtered_content, $filtered_keywords->all_pages_found_keywords);
 
@@ -80,7 +82,6 @@ class ProcessControll extends Controller
     private function bindKeywords($content, $keywords)
     {
         for ($x = 0; $x <= count($content) - 1; $x++) {
-            #TODO - make found array for EACH content page, at this moment each page will have the same array, but just making this func. flex.
             $content[$x]['found_keywords'] = $keywords[$x];
         }
 

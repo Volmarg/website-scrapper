@@ -20,7 +20,7 @@ class DOM extends Controller
     public function __construct($request)
     {
         $this->query_selectors = array(
-            'main' => $request['querySelectorBody'],
+            'main' => $request['querySelectorBody'], #TODO: change it ot querySelectorMain, across project, as this is used in other places
             'other' => $request['querySelectorOther']
         );
 
@@ -49,7 +49,7 @@ class DOM extends Controller
 
         return array(
             'content' => $this->extracted_content,
-            'title' => $this->extracted_titles
+            'title' => $this->extracted_titles # TODO: got to think about this element, maybe it should be optional via param, as its not required and breaks purpose of class a bit
         );
 
     }

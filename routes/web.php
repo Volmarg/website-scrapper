@@ -19,7 +19,4 @@ Route::post('/fetch-form', 'FormInput\FormFetch@getInput')->name('formFetcher');
 
 
 #Testing routes - remove them later
-Route::get('/testing', function () {
-
-return view('test');
-})->name('tests');
+Route::get('/testing','Pagination\Pagination@startPagination')->name('tests');
