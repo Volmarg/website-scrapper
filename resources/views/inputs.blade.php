@@ -50,8 +50,8 @@
 
     <b>Selectors</b>
         <div class="form-group">
-            {!! Form::label('querySelectorBody', 'Query Selector - main body for example') !!}
-            {!! Form::text('querySelectorBody') !!}
+            {!! Form::label('querySelectorMain', 'Query Selector - main body for example') !!}
+            {!! Form::text('querySelectorMain') !!}
         </div>
         <div class="form-group">
             {!! Form::label('querySelectorOther', 'Query Selector - header for example') !!}

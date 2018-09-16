@@ -56,7 +56,7 @@
 
 
     //one elem limited inputs
-    $('#querySelectorBody').textext({
+    $('#querySelectorMain').textext({
         plugins : 'tags prompt focus autocomplete',
         prompt : 'Add link...',
     }).bind('isTagAllowed',helpers, function(e, data){

@@ -8,14 +8,14 @@ use App\Http\Controllers\DOM\DOM;
 use App\Http\Controllers\Filters\Filters;
 use App\Http\Controllers\Rules\RejectionAcceptanceRules;
 use App\Http\Controllers\Output;
+use App\Http\Controllers\Helpers\ExtractedContentBinders;
 
 class ProcessControll extends Controller
 {
     #TODO: Remove remaining old Listeners/Events from curl
-    #TODO: make one function Rebinder and add all bindings into it
-    #TODO: REFRACTOR THIS, it's getting messy
 
     public $request, $headers, $contents, $extracted_content, $extracted_titles;
+    public $filtered_keywords,$filtered_content,$accept_reject_statuses;
 
     public function __construct($request)
     {
@@ -25,6 +25,35 @@ class ProcessControll extends Controller
 
     public function start()
     {
+
+        $this->fetchContentDataAndHeaders();
+        $this->applyFiltersOnContent();
+        $this->isContentRejectedAccepted();
+        $this->rebindExtractedContent();
+
+
+        $output = new Output($this->filtered_content);
+        $output->renderOutput();
+    }
+
+
+    private function rebindExtractedContent(){
+        $this->filtered_content  = ExtractedContentBinders::bindLinks($this->request['links'],$this->filtered_content);
+        $this->filtered_content  = ExtractedContentBinders::bindStatus($this->filtered_content, $this->accept_reject_statuses);
+        $this->filtered_content  = ExtractedContentBinders::bindKeywords($this->filtered_content,$this->filtered_keywords->all_pages_found_keywords);
+        $this->filtered_content  = ExtractedContentBinders::bindTitles($this->extracted_titles,$this->filtered_content);
+
+    }
+
+    protected function applyFiltersOnContent(){
+        $filters = new Filters($this->extracted_content, $this->request);
+        $filters_result = $filters->filter();
+
+        $this->filtered_content = $filters_result['filtered_content'];
+        $this->filtered_keywords = $filters_result['keywords'];
+    }
+
+    protected function fetchContentDataAndHeaders(){
         $curl_fetch = new Fetch($this->request['links']);
         $dom = new DOM($this->request);
 
@@ -34,66 +63,11 @@ class ProcessControll extends Controller
         $extracted_data = $dom->initializeDOM($contents);
         $this->extracted_content = $extracted_data['content'];
         $this->extracted_titles = $extracted_data['title'];
-
-        $filters = new Filters($this->extracted_content, $this->request);
-        $filters_result = $filters->filter();
-
-
-        $filtered_content = $filters_result['filtered_content'];
-        $filtered_keywords = $filters_result['keywords'];
-
-
-        $filtered_content = $this->bindLinks($filtered_content);
-
-        $rejection_acceptance_rules = new RejectionAcceptanceRules($filtered_content, $filtered_keywords);
-        $accept_reject_statuses = $rejection_acceptance_rules->apply();
-
-
-
-        $filtered_content = $this->bindStatus($filtered_content, $accept_reject_statuses);
-        $filtered_content = $this->bindKeywords($filtered_content, $filtered_keywords->all_pages_found_keywords);
-
-        $filtered_content = $this->bindTitles($filtered_content);
-
-        $output = new Output($filtered_content);
-        $output->renderOutput();
     }
 
-    private function bindLinks($filtered_content)
-    {
+    protected function isContentRejectedAccepted(){
+        $rejection_acceptance_rules = new RejectionAcceptanceRules($this->filtered_content, $this->filtered_keywords);
+        $this->accept_reject_statuses = $rejection_acceptance_rules->apply();
 
-        for ($x = 0; $x <= count($this->request['links']) - 1; $x++) {
-            $filtered_content[$x]['link'] = $this->request['links'][$x];
-        }
-
-        return $filtered_content;
-    }
-
-    private function bindStatus($filtered_content, $accept_reject_statuses)
-    {
-
-        for ($x = 0; $x <= count($accept_reject_statuses) - 1; $x++) {
-            $filtered_content[$x]['status'] = $accept_reject_statuses[$x];
-        }
-
-        return $filtered_content;
-    }
-
-    private function bindKeywords($content, $keywords)
-    {
-        for ($x = 0; $x <= count($content) - 1; $x++) {
-            $content[$x]['found_keywords'] = $keywords[$x];
-        }
-
-        return $content;
-    }
-
-    private function bindTitles($content)
-    {
-        foreach ($this->extracted_titles as $num => $one_title) {
-            $content[$num]['title'] = $one_title['title'];
-        }
-
-        return $content;
     }
 }
