@@ -17,6 +17,8 @@ class ContentExtractors extends Controller
 
     public function mainQuerySelector()
     {
+
+
         if (!empty($this->query_selectors['main'][0])) {
             return $this->dom->filter($this->query_selectors['main'][0]);
         }

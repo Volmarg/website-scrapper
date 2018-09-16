@@ -3,7 +3,7 @@
 <head>
     @include('templates/defaulthead')
 
-    <title>Laravel @yield('title')</title>
+    <title>Laravela @yield('title')</title>
 
     @yield('fonts')
     @yield('jsHead')

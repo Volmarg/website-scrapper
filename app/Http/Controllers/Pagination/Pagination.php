@@ -15,12 +15,12 @@ class Pagination extends Controller
     public function dummyData()
     {
         return array(
-            'link' => 'https://de.indeed.com/Jobs?q=php&l=berlin&start={!pagination!}',
+            'link' => 'link={!pagination!}',
             'startPage' => '0',
             'endPage' => '10',
             'pageInterator' => '10',
             'pagesPattern' => '{!pagination!}',
-            'querySelectorBody' => '.jobtitle turnstileLink', #TODO: after refractor at DOM, change this to que...Selec..Main as well
+            'querySelectorBody' => array('title'), #TODO: after refractor at DOM, change this to que...Selec..Main as well
             'querySelectorOther' => ''
         );
     }
@@ -37,10 +37,10 @@ class Pagination extends Controller
 
         #get all pagers filtered contents
         $dom = new DOM($this->pagination_data);
-        #BUG: Process wont' move further from this place
+        #BUG: Process wont' move further from this place - fix it and refractor the code at 1st
         $extracted_data = $dom->initializeDOM($contents);
 
-        dd($extracted_data);
+
     }
 
 
