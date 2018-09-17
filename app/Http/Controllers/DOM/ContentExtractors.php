@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 class ContentExtractors extends Controller
 {
     public $query_selectors, $dom;
+    #TODO: Check out why filters are using DOM, and.... why is this even working?
+
 
     public function __construct($query_selectors, $dom)
     {
@@ -20,7 +22,7 @@ class ContentExtractors extends Controller
 
 
         if (!empty($this->query_selectors['main'][0])) {
-            return $this->dom->filter($this->query_selectors['main'][0]);
+            return strip_tags($this->dom->filter($this->query_selectors['main'][0]));
         }
 
     }

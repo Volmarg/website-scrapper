@@ -17,6 +17,10 @@ class DOM extends Controller
     public $extracted_content = array();
     public $extracted_titles = array();
 
+
+    #TODO: think about using foreach in case when user want to fetch all elements with same class on page
+
+
     public function __construct($request)
     {
         $this->query_selectors = array(
