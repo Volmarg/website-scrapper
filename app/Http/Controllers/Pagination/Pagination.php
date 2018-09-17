@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers\Pagination;
 
+use App\Http\Controllers\Dumpers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Curl\Fetch;
 use App\Http\Controllers\DOM\DOM;
+use App\Http\Controllers\DummyData;
+use App\Http\Controllers\Pagination\Subpages;
 
 class Pagination extends Controller
 {
 
+    public $links_to_crawl;
+    public $subpage;
 
     /* Process IDEA
 
@@ -18,57 +23,32 @@ class Pagination extends Controller
     - filter each content by given keywords (main ca be used for fetching link )
 
     */
+
+
+
 #TODO: check WHY it seems like DOM lib fetches sometimes few occurences of QuerySelector but it seems like it takes content from other page.
-
-
-
-
     public $pagination_data = '';
 
-    public function dummyData()
+    public function __construct()
     {
-        return array(
-            'link' => 'https://de.indeed.com/Jobs?q=php&l=berlin&start={!pagination!}',
-            'startPage' => '0',
-            'endPage' => '2',
-            'pageInterator' => '10',
-            'pagesPattern' => '{!pagination!}',
-            'querySelectorMain' => array('a.jobtitle'), #
-            'querySelectorOther' => ''
-        );
+        $this->subpage = new Subpages();
+        $this->pagination_data = DummyData::formInput();
     }
 
-
-    public function startPagination()
+    public function startGrabbingPagination()
     {
-
-        $this->pagination_data = $this->dummyData();
 
         #Get all pagers content
         $links = $this->buildPagersLinks();
-     echo '<pre>';
-     var_dump($links);
-     echo '</pre>';
-        $contents = $this->fetchEachPageContent($links);
+        $pagination_content = $this->subpage->fetchEachPageContent($links);
 
-     echo '<pre>';
-     var_dump($contents);
-     echo '</pre>';
         #get all pagers filtered contents
         $dom = new DOM($this->pagination_data);
-        #BUG: Process wont' move further from this place - fix it and refractor the code at 1st
-        $extracted_data = $dom->initializeDOM($contents);
-     dd($extracted_data);
+        $extracted_pagination_data = $dom->initializeDOM($pagination_content);
 
-    }
+        Dumpers::iterateOverHtmlNodeElements($extracted_pagination_data);
+        dd($extracted_pagination_data);
 
-
-#Move this functions to the DOM/Fetch etc - it's onl for tests here
-    public function fetchEachPageContent($links)
-    {
-        $curl_fetch = new Fetch($links);
-        $curl_fetch->getHeaders();
-        return $curl_fetch->getContent();
     }
 
     private function buildPagersLinks()

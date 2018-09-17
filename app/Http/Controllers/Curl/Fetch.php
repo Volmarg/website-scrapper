@@ -19,6 +19,7 @@ class Fetch extends Controller
         $this->links = $links;
     }
 
+    #TODO: make this two protected and set into one class as Headers need to be run, for Content Fetch but not required seperately
     public function getHeaders()
     {
         #point PageHeaders class
@@ -48,8 +49,9 @@ class Fetch extends Controller
         return $this->extracted_contents;
     }
 
-    public function getPagination()
+    public function getPageData()
     {
-
+        $this->getHeaders();
+        return $this->getContent();
     }
 }

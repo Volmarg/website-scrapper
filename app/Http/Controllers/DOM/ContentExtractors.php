@@ -22,7 +22,7 @@ class ContentExtractors extends Controller
 
 
         if (!empty($this->query_selectors['main'][0])) {
-            return strip_tags($this->dom->filter($this->query_selectors['main'][0]));
+            return $this->dom->filter($this->query_selectors['main'][0]);
         }
 
     }

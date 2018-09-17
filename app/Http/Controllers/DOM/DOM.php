@@ -9,6 +9,23 @@ use Wa72\HtmlPageDom\HtmlPage;
 use Wa72\HtmlPageDom\HtmlPageCrawler;
 use App\Http\Controllers\DOM\ContentExtractors;
 
+/*
+ |--------------------------------------------------------------------------
+ | About: Wa72\HtmlPageDom\HtmlPageCrawler - some usefull methods
+ |--------------------------------------------------------------------------
+ |
+ | Getting attribute like with jQuery: ->attr('href') or raw text as ->text();
+ | Getting content from between tags like jQ ->html();
+ | Example iteration over Nodes
+       $extracted_data['content'][0]['dom_content']['main']->each(
+            function ($element) {
+               echo $element->text();
+            });
+ |
+ |
+ |
+ */
+
 class DOM extends Controller
 {
 
