@@ -12,6 +12,7 @@ class Acceptance extends Controller
         return (!isset($found_keywords['main_reject']) ? true : false);
     }
 
+
     public function checkAcceptance($found_keywords)
     {
         $no_rejection = $this->hasNoRejectableKeywords($found_keywords);

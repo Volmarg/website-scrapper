@@ -13,9 +13,6 @@ use App\Http\Controllers\Pagination\Subpages;
 class Pagination extends Controller
 {
 
-    public $links_to_crawl;
-    public $subpage;
-
     /* Process IDEA
 
     - build all pagination links,
@@ -24,31 +21,46 @@ class Pagination extends Controller
 
     */
 
-
-
-#TODO: check WHY it seems like DOM lib fetches sometimes few occurences of QuerySelector but it seems like it takes content from other page.
-    public $pagination_data = '';
+    public $links_to_crawl=array();
+    public $subpage;
+    public $pagination_data = '', $domain = '';
 
     public function __construct()
     {
         $this->subpage = new Subpages();
         $this->pagination_data = DummyData::formInput();
+        $this->domain = DummyData::$domain; #TODO: use link construction checker - this is hardcoded atm.
     }
 
     public function startGrabbingPagination()
     {
 
-        #Get all pagers content
-        $links = $this->buildPagersLinks();
-        $pagination_content = $this->subpage->fetchEachPageContent($links);
+        $pagers_links = $this->buildPagersLinks();
+        $curl_fetch = new Fetch($pagers_links);
 
-        #get all pagers filtered contents
         $dom = new DOM($this->pagination_data);
-        $extracted_pagination_data = $dom->initializeDOM($pagination_content);
+        $extracted_pagination_content = $dom->initializeDOM($curl_fetch->getPageData());
+        $this->checkEachSubpageContent($extracted_pagination_content);
 
-        Dumpers::iterateOverHtmlNodeElements($extracted_pagination_data);
-        dd($extracted_pagination_data);
+        echo '<h3>All found subpages links</h3>'; #TODO:remove this
+        dump($this->links_to_crawl);
 
+    }
+
+    protected function checkEachSubpageContent($extracted_pagination_content)
+    {
+        #TODO: try to reuse functions from ProcessControll somehow
+        $this->getAllFoundSubpagesLinks($extracted_pagination_content);
+    }
+
+    protected function getAllFoundSubpagesLinks($extracted_data)
+    {
+        for ($x = 0; $x <= count($extracted_data['content']) - 1; $x++) {
+            $extracted_data['content'][$x]['dom_content']['main']->each(
+                function ($element, $num) {
+                    array_push($this->links_to_crawl, $this->domain . $this->subpage->extractSubpageLinkFromEachMatch($element));
+                });
+        }
     }
 
     private function buildPagersLinks()

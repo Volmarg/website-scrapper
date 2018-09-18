@@ -6,6 +6,7 @@ use App\Http\Controllers\Curl\PageContentFetch;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Curl\PageHeadersFetch;
+use App\Http\Controllers\Helpers\ContentCheckers;
 
 class Fetch extends Controller
 {
@@ -13,10 +14,12 @@ class Fetch extends Controller
     public $original_headers = array(), $extraced_headers = array(); #link and headers
     public $links;
     public $extracted_contents = array();
+    public $min_content_len = '';
 
-    public function __construct($links)
+    public function __construct($links, $minimum_content_length = '')
     {
         $this->links = $links;
+        $this->min_content_len = $minimum_content_length;
     }
 
     #TODO: make this two protected and set into one class as Headers need to be run, for Content Fetch but not required seperately
@@ -54,4 +57,16 @@ class Fetch extends Controller
         $this->getHeaders();
         return $this->getContent();
     }
+
+
+    protected function shouldContentBeChecked()
+    {
+        if(!empty($this->min_content_len)){
+            ContentCheckers::isContentLongEnough($this->extracted_content, $this->min_content_len);
+        }
+
+        return true;
+    }
+
+
 }

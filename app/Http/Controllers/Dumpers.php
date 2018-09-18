@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Pagination\Subpages;
 
 /*
  |--------------------------------------------------------------------------
@@ -21,13 +22,16 @@ class Dumpers extends Controller
 
     public static function iterateOverHtmlNodeElements($extracted_data)
     {
+
         //iterating over Documents Nodes
         echo '<pre>';
         for ($x = 0; $x <= count($extracted_data['content']) - 1; $x++) {
             $extracted_data['content'][$x]['dom_content']['main']->each(
                 function ($element) {
-                    echo $element->text();
-                    echo $element->nodeName();
+
+                    $s = new Subpages();
+                    echo DummyData::$domain.$s->extractLinksFromEachFetchedNode($element);
+                    echo '</br>';
                 });
             echo '</br>';
         }

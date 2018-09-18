@@ -15,11 +15,11 @@ class ProcessControll extends Controller
     #TODO: Remove remaining old Listeners/Events from curl
 
     public $request, $headers, $contents, $extracted_content, $extracted_titles;
-    public $filtered_keywords,$filtered_content,$accept_reject_statuses;
+    public $filtered_keywords, $filtered_content, $accept_reject_statuses;
 
     public function __construct($request)
     {
-
+        dump($request);
         $this->request = $request;
     }
 
@@ -31,21 +31,22 @@ class ProcessControll extends Controller
         $this->isContentRejectedAccepted();
         $this->rebindExtractedContent();
 
-
         $output = new Output($this->filtered_content);
         $output->renderOutput();
     }
 
 
-    private function rebindExtractedContent(){
-        $this->filtered_content  = ExtractedContentBinders::bindLinks($this->request['links'],$this->filtered_content);
-        $this->filtered_content  = ExtractedContentBinders::bindStatus($this->filtered_content, $this->accept_reject_statuses);
-        $this->filtered_content  = ExtractedContentBinders::bindKeywords($this->filtered_content,$this->filtered_keywords->all_pages_found_keywords);
-        $this->filtered_content  = ExtractedContentBinders::bindTitles($this->extracted_titles,$this->filtered_content);
+    private function rebindExtractedContent()
+    {
+        $this->filtered_content = ExtractedContentBinders::bindLinks($this->request['links'], $this->filtered_content);
+        $this->filtered_content = ExtractedContentBinders::bindStatus($this->filtered_content, $this->accept_reject_statuses);
+        $this->filtered_content = ExtractedContentBinders::bindKeywords($this->filtered_content, $this->filtered_keywords->all_pages_found_keywords);
+        $this->filtered_content = ExtractedContentBinders::bindTitles($this->extracted_titles, $this->filtered_content);
 
     }
 
-    protected function applyFiltersOnContent(){
+    protected function applyFiltersOnContent()
+    {
         $filters = new Filters($this->extracted_content, $this->request);
         $filters_result = $filters->filter();
 
@@ -53,8 +54,9 @@ class ProcessControll extends Controller
         $this->filtered_keywords = $filters_result['keywords'];
     }
 
-    protected function fetchContentDataAndHeaders(){
-        $curl_fetch = new Fetch($this->request['links']);
+    protected function fetchContentDataAndHeaders()
+    {
+        $curl_fetch = new Fetch($this->request['links'],$this->request['contentLength'][0]);
         $dom = new DOM($this->request);
 
         $curl_fetch->getHeaders();
@@ -65,7 +67,8 @@ class ProcessControll extends Controller
         $this->extracted_titles = $extracted_data['title'];
     }
 
-    protected function isContentRejectedAccepted(){
+    protected function isContentRejectedAccepted()
+    {
         $rejection_acceptance_rules = new RejectionAcceptanceRules($this->filtered_content, $this->filtered_keywords);
         $this->accept_reject_statuses = $rejection_acceptance_rules->apply();
 

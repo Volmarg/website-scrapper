@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 
 class DummyData extends Controller
 {
+    public static $domain = 'https://de.indeed.com';
+
     public static function formInput()
     {
 
