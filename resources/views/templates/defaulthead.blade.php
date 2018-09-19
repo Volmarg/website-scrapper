@@ -8,7 +8,7 @@
 
 <!-- default stylesheets !-->
 <link rel="stylesheet" href="css/formGrid.css"/>
-
+<link rel="stylesheet" href="css/textExt.css"/>
 <!-- default external css !-->
 <!-- bootstrap !-->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">

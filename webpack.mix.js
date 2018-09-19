@@ -28,7 +28,8 @@ mix.js('resources/assets/js/app.js', 'public/js');
         'public/js/forms_bundle.js'
     )
     .sass('resources/assets/sass/app.scss', 'public/css')
-    .sass('resources/assets/sass/formGrid.scss', 'public/css');
+    .sass('resources/assets/sass/formGrid.scss', 'public/css')
+    .sass('resources/assets/sass/textExt.scss', 'public/css');
 
 /*
 |--------------------------------------------------------------------------

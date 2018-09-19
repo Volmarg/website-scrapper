@@ -1,25 +1,70 @@
 // Inputs
-@mixin flex_justify{
+@mixin flex_justify {
   display: flex;
   justify-content: space-around;
   flex-wrap: nowrap;
 
 }
 
+@mixin flex_justify_center {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
 
-.inputs_component form{
-  @include flex_justify;
+$inputFormLightColor: rgba(255, 255, 255, 0.05);
+$inputFormDarkColor: rgba(255, 255, 255, 0.3);
 
-  label{
+@mixin inputGeneralStyle {
+  background: $inputFormLightColor;
+  width: 180px;
+  height: 40px;
+  border: none;
+
+}
+
+.inputs_component form {
+
+  label {
     display: block;
   }
 
-  .hiddenElement{
+  .hiddenElement {
     display: none;
   }
+
+  .formRowElements {
+    @include flex_justify;
+    .text-wrap, textarea, input:not([type^="submit"]):not([type^="radio"]) {
+      width: 300px;
+      @include inputGeneralStyle;
+    }
+    input[type^="submit"], input[type^="radio"] {
+      @include inputGeneralStyle;
+    }
+
+    input[type^="submit"] {
+      background: $inputFormDarkColor !important;
+      transition: 100ms linear;
+      &:hover {
+        background: $inputFormLightColor !important;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .formRowElements > section, .formRowElements > section + section {
+    min-width: 500px;
+    max-width: 700px;
+  }
+
+  .formWrapper h3 {
+    margin-left: 300px;
+  }
+
 }
 
 // Outputs
-.hiddenContent{
+.hiddenContent {
   display: none;
 }

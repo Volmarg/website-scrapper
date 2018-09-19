@@ -1,0 +1,29 @@
+.text-tag {
+  .text-label {
+    color: black !important;
+  }
+
+  .text-button {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+
+  }
+
+  .text-remove {
+    color: white !important;
+    background: none !important;
+
+    &:after {
+      top: -5px;
+      content: "✗" !important;
+      position: relative;
+
+    }
+    &:hover {
+
+      &:after {
+        opacity:0.3;
+      }
+    }
+  }
+
+}

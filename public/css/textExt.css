@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+.text-tag .text-label {
+  color: black !important;
+}
+
+.text-tag .text-button {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.text-tag .text-remove {
+  color: white !important;
+  background: none !important;
+}
+
+.text-tag .text-remove:after {
+  top: -5px;
+  content: "\2717" !important;
+  position: relative;
+}
+
+.text-tag .text-remove:hover:after {
+  opacity: 0.3;
+}
+

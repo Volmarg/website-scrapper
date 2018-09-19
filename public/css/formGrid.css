@@ -1,4 +1,12 @@
-.inputs_component form {
+.inputs_component form label {
+  display: block;
+}
+
+.inputs_component form .hiddenElement {
+  display: none;
+}
+
+.inputs_component form .formRowElements {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -8,11 +16,46 @@
       flex-wrap: nowrap;
 }
 
-.inputs_component form label {
-  display: block;
+.inputs_component form .formRowElements .text-wrap,
+.inputs_component form .formRowElements textarea,
+.inputs_component form .formRowElements input:not([type^="submit"]):not([type^="radio"]) {
+  width: 300px;
+  background: rgba(255, 255, 255, 0.05);
+  width: 180px;
+  height: 40px;
+  border: none;
 }
 
-.inputs_component form .hiddenElement {
+.inputs_component form .formRowElements input[type^="submit"],
+.inputs_component form .formRowElements input[type^="radio"] {
+  background: rgba(255, 255, 255, 0.05);
+  width: 180px;
+  height: 40px;
+  border: none;
+}
+
+.inputs_component form .formRowElements input[type^="submit"] {
+  background: rgba(255, 255, 255, 0.3) !important;
+  -webkit-transition: 100ms linear;
+  transition: 100ms linear;
+}
+
+.inputs_component form .formRowElements input[type^="submit"]:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  cursor: pointer;
+}
+
+.inputs_component form .formRowElements > section,
+.inputs_component form .formRowElements > section + section {
+  min-width: 500px;
+  max-width: 700px;
+}
+
+.inputs_component form .formWrapper h3 {
+  margin-left: 300px;
+}
+
+.hiddenContent {
   display: none;
 }
 
