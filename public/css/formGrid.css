@@ -1,3 +1,14 @@
+.inputs_component form .formOptions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+}
+
 .inputs_component form label {
   display: block;
 }
@@ -16,7 +27,12 @@
       flex-wrap: nowrap;
 }
 
+.inputs_component form .formRowElements button + button {
+  margin-left: 10px;
+}
+
 .inputs_component form .formRowElements .text-wrap,
+.inputs_component form .formRowElements button,
 .inputs_component form .formRowElements textarea,
 .inputs_component form .formRowElements input:not([type^="submit"]):not([type^="radio"]) {
   width: 300px;
@@ -34,12 +50,14 @@
   border: none;
 }
 
+.inputs_component form .formRowElements button,
 .inputs_component form .formRowElements input[type^="submit"] {
   background: rgba(255, 255, 255, 0.3) !important;
   -webkit-transition: 100ms linear;
   transition: 100ms linear;
 }
 
+.inputs_component form .formRowElements button:hover,
 .inputs_component form .formRowElements input[type^="submit"]:hover {
   background: rgba(255, 255, 255, 0.05) !important;
   cursor: pointer;

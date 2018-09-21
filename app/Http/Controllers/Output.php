@@ -21,7 +21,6 @@ class Output extends Controller
     protected function passToView()
     {
         $content = $this->filtered_content;
-
         echo view('outputs', compact('content'));
     }
 }

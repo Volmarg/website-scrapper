@@ -16,6 +16,7 @@
 <ul>
 <li>Windows
            <ul>
+               <li>GIT</li>
                <li>PHP storm,</li>
                <li>Xdebug</li>
                <li>Composer</li>

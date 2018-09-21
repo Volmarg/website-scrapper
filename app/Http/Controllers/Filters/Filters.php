@@ -12,23 +12,24 @@ class Filters extends Controller
 
     public function __construct($content, $request)
     {
-        $this->keywords = new Keywords($request);
+        $this->keywords = new Keywords($request); #1>>
         $this->original_content = $content;
         $this->request = $request;
     }
 
     public function filter()
     {
-        $filtered_content = $this->filterByKeywords();
 
+        $pages_filtering_data = $this->filterByKeywords();
         return array(
-            'filtered_content' => $filtered_content,
-            'keywords' => $this->keywords
+            'filtered_content' => $pages_filtering_data['marked_content_all_pages'],
+            'keywords' => $pages_filtering_data['found_keywords_all_pages']
         );
     }
 
     protected function filterByKeywords()
     {
+        #Ciekawy case - odrazu przerzuca te wartosci do this keywords #1>>
         return $this->keywords->searchKeywords($this->original_content);
 
 

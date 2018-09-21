@@ -19,6 +19,8 @@ class ExtractedContentBinders extends Controller
 
     public static function bindStatus($filtered_content, $accept_reject_statuses)
     {
+        #TODO: this needs to work with more than one status. Input is passing main/other search and i want stauses for both
+
 
         for ($x = 0; $x <= count($accept_reject_statuses) - 1; $x++) {
             $filtered_content[$x]['status'] = $accept_reject_statuses[$x];
@@ -29,6 +31,7 @@ class ExtractedContentBinders extends Controller
 
     public static function bindKeywords($content, $keywords)
     {
+
         for ($x = 0; $x <= count($content) - 1; $x++) {
             $content[$x]['found_keywords'] = $keywords[$x];
         }

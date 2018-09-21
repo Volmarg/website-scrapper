@@ -25,6 +25,10 @@ $inputFormDarkColor: rgba(255, 255, 255, 0.3);
 
 .inputs_component form {
 
+  .formOptions {
+    @include flex_justify_center;
+  }
+
   label {
     display: block;
   }
@@ -34,8 +38,13 @@ $inputFormDarkColor: rgba(255, 255, 255, 0.3);
   }
 
   .formRowElements {
+
+    button + button {
+      margin-left: 10px;
+    }
+
     @include flex_justify;
-    .text-wrap, textarea, input:not([type^="submit"]):not([type^="radio"]) {
+    .text-wrap, button, textarea, input:not([type^="submit"]):not([type^="radio"]) {
       width: 300px;
       @include inputGeneralStyle;
     }
@@ -43,7 +52,7 @@ $inputFormDarkColor: rgba(255, 255, 255, 0.3);
       @include inputGeneralStyle;
     }
 
-    input[type^="submit"] {
+    button, input[type^="submit"] {
       background: $inputFormDarkColor !important;
       transition: 100ms linear;
       &:hover {

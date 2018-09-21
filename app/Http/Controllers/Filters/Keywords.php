@@ -22,66 +22,85 @@ class Keywords extends Controller
             'other_reject' => $request['rejectKeywordsOther']
         );
 
+
     }
 
     public function searchKeywords($original_content)
     {
-        return $this->checkEachContentType($original_content);
+
+        return $this->checkAllScannedPages($original_content);
 
     }
 
-    protected function checkEachContentType($content)
+    protected function checkAllScannedPages($content)
     {
 
         $marked_content_all_pages = array();
         $marked_content_one_page = array();
+        $found_keywords_one_page = array();
+        $found_keywords_all_pages = array();
+
 
         foreach ($content as $one_page_content) {
-            foreach ($one_page_content['dom_content'] as $key => $type_of_content) {
+            foreach ($one_page_content['dom_content'] as $content_selector_name => $content_for_selector) {
 
-                if (!empty($type_of_content)) {
-                    $type_of_content = $this->checkThisContentType($type_of_content);
-                    $marked_content_one_page[$key] = $type_of_content;
+                if (!empty($content_for_selector)) {
+                    $one_page_scan_result = $this->checkOneScannedPage($content_for_selector, $content_selector_name);
 
+                    $marked_content_one_page[$content_selector_name] = $one_page_scan_result['one_page_marked_content'];
+                    foreach ($one_page_scan_result['one_page_found_keywords'] as $keywords_selector_name => $one_selector_found_keywords) {
+
+                        $found_keywords_one_page[$keywords_selector_name] = $one_selector_found_keywords;
+                    }
                 }
+
             }
 
             array_push($marked_content_all_pages, $marked_content_one_page);
+            array_push($found_keywords_all_pages, $found_keywords_one_page);
+            $marked_content_one_page = array();
+            $found_keywords_one_page = array();
         }
-        return $marked_content_all_pages;
+        return compact('marked_content_all_pages', 'found_keywords_all_pages');
     }
 
-    protected function checkThisContentType($type_of_content)
+    protected function checkOneScannedPage($content_for_selector, $content_selector_name)
     {
+
+
         $one_page_found_keywords = array();
 
+        foreach ($this->keywords_to_check as $keyword_selector_name => $keywords_for_selector) {
+            foreach ($keywords_for_selector as $one_keyword) {
 
-        foreach ($this->keywords_to_check as $keyword_type_name => $keywords_type) {
+                if (strstr($keyword_selector_name, $content_selector_name)) {
 
-            foreach ($keywords_type as $one_keyword) {
+                    if (!empty($keywords_for_selector) && !empty($content_for_selector)) {
 
-                if (!empty($keywords_type) && !empty($type_of_content)) {
+                        $result = stristr(strip_tags($content_for_selector), $one_keyword);
 
+                        if ($result) {
 
-                    $result = stristr(strip_tags($type_of_content), $one_keyword);
+                            if (!isset($one_page_found_keywords[$keyword_selector_name])) {
+                                $one_page_found_keywords[$keyword_selector_name] = array();
+                            }
+                            array_push($one_page_found_keywords[$keyword_selector_name], $one_keyword);
 
-                    if ($result) {
-                        $one_page_found_keywords[$keyword_type_name] = $one_keyword;
+                            $content_for_selector = $this->applyMarkers($content_for_selector, $one_keyword, $keyword_selector_name);
 
+                        } else {
+                            $content_for_selector = $content_for_selector;
+                        }
 
-                        $type_of_content = $this->applyMarkers($type_of_content, $one_keyword, $keyword_type_name);
-
-
+                    } else {
+                        $content_for_selector = $content_for_selector;
                     }
-
-                } else {
-                    $type_of_content = NULL;
                 }
-
             }
         }
-        array_push($this->all_pages_found_keywords, $one_page_found_keywords);
-        return $type_of_content;
+
+        $one_page_marked_content = $content_for_selector;
+        return compact('one_page_found_keywords', 'one_page_marked_content');
 
     }
 
