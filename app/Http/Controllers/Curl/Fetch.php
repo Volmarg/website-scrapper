@@ -19,7 +19,7 @@ class Fetch extends Controller
     public function __construct($links, $minimum_content_length = '')
     {
         $this->links = $links;
-        $this->min_content_len = $minimum_content_length;
+        $this->min_content_len = 500;
     }
 
     #TODO: make this two protected and set into one class as Headers need to be run, for Content Fetch but not required seperately

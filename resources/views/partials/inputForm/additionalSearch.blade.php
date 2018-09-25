@@ -15,8 +15,6 @@
         <section>
             <b>Additional Rules</b>
             <div class="form-group">
-                {!! Form::label('contentLength','Enter content length') !!}
-                {!! Form::text('contentLength') !!}
             </div>
         </section>
     </section>

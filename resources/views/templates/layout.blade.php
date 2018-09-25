@@ -3,7 +3,7 @@
 <head>
     @include('templates/defaulthead')
 
-    <title>Laravela @yield('title')</title>
+    <title>Laravel @yield('title')</title>
 
 <!-- move this to new scss!-->
     <style>
@@ -12,6 +12,7 @@
         }
 
         body {
+
             height: 100%;
             overflow: hidden;
             background: #2e3441;

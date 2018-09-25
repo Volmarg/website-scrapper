@@ -15,7 +15,6 @@
             @include('partials/inputForm/keywords')
             @include('partials/inputForm/selectors')
             @include('partials/inputForm/searchType')
-            @include('partials/inputForm/additionalSearch')
 
 
             <section class="submitForm formRowElements">
