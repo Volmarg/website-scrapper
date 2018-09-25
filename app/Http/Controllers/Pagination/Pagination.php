@@ -9,6 +9,7 @@ use App\Http\Controllers\Curl\Fetch;
 use App\Http\Controllers\DOM\DOM;
 use App\Http\Controllers\DummyData;
 use App\Http\Controllers\Pagination\Subpages;
+use App\Http\Controllers\ProcessControll;
 
 class Pagination extends Controller
 {
@@ -44,6 +45,9 @@ class Pagination extends Controller
 
         echo '<h3>All found subpages links</h3>'; #TODO:remove this
         dump($this->links_to_crawl);
+
+        echo '<h3> All extracted content from subpages </h3>';
+
 
     }
 

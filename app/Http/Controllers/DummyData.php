@@ -10,12 +10,12 @@ use Illuminate\Http\Request;
  |--------------------------------------------------------------------------
 */
 
+
 class DummyData extends Controller
 {
     public static $domain = 'https://de.indeed.com';
 
-    public static function formInput()
-    {
+    public static function formInput() {
 
         return array(
             'link' => 'https://de.indeed.com/Jobs?q=php&l=berlin&start={!pagination!}',

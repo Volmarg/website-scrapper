@@ -19,4 +19,13 @@ Route::post('/fetch-form', 'FormInput\FormFetch@getInput')->name('formFetcher');
 
 
 #Testing routes - remove them later
-Route::get('/testing','Pagination\Pagination@startGrabbingPagination')->name('tests');
+Route::get('/testing', 'Pagination\Pagination@startGrabbingPagination')->name('tests');
+
+# Ajax #
+Route::get('inputForm-singlePages',function () {
+    return view('input-forms/singlePages');
+});
+
+Route::get('inputForm-pagination',function () {
+    return view('input-forms/pagination');
+});

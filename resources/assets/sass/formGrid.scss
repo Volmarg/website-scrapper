@@ -1,3 +1,4 @@
+
 // Inputs
 @mixin flex_justify {
   display: flex;
@@ -23,7 +24,7 @@ $inputFormDarkColor: rgba(255, 255, 255, 0.3);
 
 }
 
-.inputs_component form {
+.inputs_component .formWrapper {
 
   .formOptions {
     @include flex_justify_center;

@@ -6,24 +6,15 @@
 
     @input
     @slot('up')
-        {!! Form::open(['route'=>'formFetcher']) !!}
+
 
         <section class="justify-content-center formWrapper">
-
-
             @include('partials/inputForm/formOptions')
-            @include('partials/inputForm/keywords')
-            @include('partials/inputForm/selectors')
-            @include('partials/inputForm/searchType')
 
-
-            <section class="submitForm formRowElements">
-                {!! Form::submit('submit') !!}
-                {!! Form::close() !!}
-            </section>
-
+            <div id="formTypeAjaxLoader">
+                @include('input-forms/singlePages')
+            </div>
         </section>
-
 
     @endslot
 
@@ -46,3 +37,5 @@
     <hr/>
 
 @endsection
+
+

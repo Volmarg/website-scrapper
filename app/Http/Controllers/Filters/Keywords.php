@@ -67,7 +67,7 @@ class Keywords extends Controller
     protected function checkOneScannedPage($content_for_selector, $content_selector_name)
     {
 
-
+    #Info: This bunch of ifs/foreaches is so much wrong and I know this, but not changing it.. just not doing it anymore...
         $one_page_found_keywords = array();
 
         foreach ($this->keywords_to_check as $keyword_selector_name => $keywords_for_selector) {

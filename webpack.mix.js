@@ -19,10 +19,9 @@ mix.js('resources/assets/js/app.js', 'public/js');
 
     mix.scripts(
         [
-            'resources/assets/js/myScripts/forms/lib/formEvents.js',
-            'resources/assets/js/myScripts/forms/lib/htmlElements.js',
-            'resources/assets/js/myScripts/forms/inputFormScripts.js',
-            'resources/assets/js/myScripts/loadFormsScripts.js'
+            'resources/assets/js/forms/LayoutSwitcher.js',
+            'resources/assets/js/forms/TextExtInvoker.js',
+            'resources/assets/js/InputFormScripts.js'
 
         ],
         'public/js/forms_bundle.js'
