@@ -2,7 +2,7 @@
 
 @include('partials/inputForm/keywords')
 @include('partials/inputForm/selectors')
-@include('partials/inputForm/searchType')
+@include('partials/inputForm/singleLinks')
 
 <section class="submitForm formRowElements">
     {!! Form::submit('submit') !!}

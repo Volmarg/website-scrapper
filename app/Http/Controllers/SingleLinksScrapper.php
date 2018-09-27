@@ -10,7 +10,7 @@ use App\Http\Controllers\Rules\RejectionAcceptanceRules;
 use App\Http\Controllers\Output;
 use App\Http\Controllers\Helpers\ExtractedContentBinders;
 
-class ProcessControll extends Controller //TODO: change this class/filename
+class SingleLinksScrapper extends Controller //TODO: change this class/filename
 {
     #TODO: Remove remaining old Listeners/Events from curl
 
@@ -22,7 +22,7 @@ class ProcessControll extends Controller //TODO: change this class/filename
         $this->request = $request;
     }
 
-    public function start() {
+    public function scrapLinks() {
 
         $this->fetchContentDataAndHeaders();
         $this->applyFiltersOnContent();

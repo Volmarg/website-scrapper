@@ -8,7 +8,7 @@
 
 namespace App\Http\Controllers\FormInput;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ProcessControll;
+use App\Http\Controllers\SingleLinksScrapper;
 
 
 class FormFetch
@@ -21,8 +21,8 @@ class FormFetch
         $this->requestToArray($request);
         $this->inputsToArrays();
 
-        $process_controll=new ProcessControll($this->request_array);
-        $process_controll->start();
+        $process_controll=new SingleLinksScrapper($this->request_array);
+        $process_controll->scrapLinks();
     }
 
     public function requestToArray($request){
