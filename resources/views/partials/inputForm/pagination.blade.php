@@ -1,9 +1,9 @@
 <h3> Pagination option </h3>
 
-<section class="keywords formRow">
+<section class=" formRow">
 
     <b> Pagination parameters</b>
-    <section class="keywordsForms formRowElements">
+    <section class=" formRowElements">
 
 
         <section class="">
@@ -39,15 +39,23 @@
 </section>
 
 
-<section class="keywords formRow">
-    <section class="keywordsForms formRowElements">
+<section class=" formRow">
+    <section class=" formRowElements">
         <section class="">
-            <b> Pagination Links</b>
+
             <div class="form-group">
-                {!! Form::label('pagination_links','Enter pagination based links in form <yourLink>&paginationParam={!pagination!}') !!}
-                {!! Form::textarea('pagination_links','',['rows'=>'1']) !!}
+                {!! Form::label('subpagesLinkExtractionPattern','Query that will be used to locate sublinks') !!}
+                {!! Form::textarea('subpagesLinkExtractionPattern','',['rows'=>'1']) !!}
             </div>
 
+
+        </section>
+
+        <section class="">
+            <div class="form-group">
+                {!! Form::label('pagination_links','Enter pagination based links: <yourLink>&paginationParam={!pagination!}') !!}
+                {!! Form::textarea('pagination_links','',['rows'=>'1']) !!}
+            </div>
         </section>
     </section>
 </section>

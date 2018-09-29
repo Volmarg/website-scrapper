@@ -38,8 +38,10 @@ class DOM extends Controller
     #TODO: think about using foreach in case when user want to fetch all elements with same class on page
 
 
-    public function __construct($request)
-    {
+    public function __construct($request) {
+        $request['querySelectorMain'] = $request['querySelectorMain'] ?? NULL;
+        $request['querySelectorOther'] = $request['querySelectorOther'] ?? NULL;
+
         $this->query_selectors = array(
             'main' => $request['querySelectorMain'],
             'other' => $request['querySelectorOther']
@@ -47,8 +49,7 @@ class DOM extends Controller
 
     }
 
-    public function initializeDOM($content)
-    {
+    public function initializeDOM($content) {
 
         foreach ($content as $one_page) {
 

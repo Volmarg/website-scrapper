@@ -38,4 +38,9 @@
 
 @endsection
 
+@section('jsFooter')
+    <footer>
+        @include('templates/footerJsScripts')
+    </footer>
+@endsection
 

@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Pagination;
 
-use App\Http\Controllers\Dumpers;
-use Illuminate\Http\Request;
+use App\Events\GetHeaderEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Curl\Fetch;
+use App\Http\Controllers\Curl\PageContentFetch;
 use App\Http\Controllers\DOM\DOM;
 use App\Http\Controllers\DummyData;
-use App\Http\Controllers\Pagination\Subpages;
 use App\Http\Controllers\ProcessControll;
-use App\Http\Controllers\SingleLinksScrapper;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Curl\PageHeadersFetch;
 
 class Pagination extends Controller
 {
@@ -25,13 +25,22 @@ class Pagination extends Controller
 
     public $links_to_crawl = array();
     public $subpage;
-    public $pagination_data = '', $domain = '';
-    public $paginations_request='';
-    public $single_link_request='';
+    public $pagination_data = '';
+    public $paginations_request = '';
+    public $single_links_request = '';
     public $request;
+    public $raw_request;
+    public $dom_selectors;
+    public $pagers_links;
 
     public function __construct(Request $request) {
-        $this->request=$request;
+
+        $this->raw_request = $request;
+        $this->request = $request->toArray();
+        foreach ($this->request as $key => $value) {
+            $this->request[$key] = json_decode($value);
+        }
+
         $this->subpage = new Subpages();
         $this->pagination_data = DummyData::paginationFormPart();
         $this->domain = DummyData::$domain; #TODO: use link construction checker - this is hardcoded atm.
@@ -39,45 +48,86 @@ class Pagination extends Controller
 
     public function startGrabbingPagination() {
 
-        dd($this->request);
+        $this->rebuildPaginationRequest();
+        $this->buildDomSelectors();
+        $this->pagers_links = $this->buildPagersLinks();
 
-        $pagers_links = $this->buildPagersLinks();
-        $curl_fetch = new Fetch($pagers_links);
-
-        $dom = new DOM($this->pagination_data);
+        $curl_fetch = new Fetch($this->pagers_links);
+        $dom = new DOM($this->dom_selectors);
         $extracted_pagination_content = $dom->initializeDOM($curl_fetch->getPageData());
+
+        $start = microtime(true);
         $this->getAllFoundSubpagesLinks($extracted_pagination_content);
-        $this->subpage->scrapSingleLinks($this->links_to_crawl);
+        echo 'find_subpages_start: </br>' . (microtime(true) - $start) . '</br>';
 
+        $start = microtime(true);
+        $this->rebuildSingleLinksRequest();
+        echo 'rebuild links: </br>' . (microtime(true) - $start) . '</br>';
 
+        $start = microtime(true);
 
-        echo '<h3>All found subpages links</h3>'; #TODO:remove this
-        dump($this->links_to_crawl);
-        echo '<h3> All extracted content from subpages </h3>';
-
+        #$this->single_links_request = DummyData::timeCheckingDummyData();
+        $this->subpage->scrapSingleLinks($this->single_links_request);
+        echo 'scrap single links </br>' . (microtime(true) - $start) . '</br>';
 
     }
 
-    protected function rebuildRequest(){
+    protected function rebuildSingleLinksRequest() {
+        $this->single_links_request = array(
+            'acceptKeywordsBody' => $this->request['acceptKeywordsBody'],
+            'acceptKeywordsOther' => $this->request['acceptKeywordsOther'],
+            'rejectKeywordsBody' => $this->request['rejectKeywordsBody'],
+            'rejectKeywordsOther' => $this->request['rejectKeywordsOther'],
+            'acceptKeywordsBody' => $this->request['acceptKeywordsBody'],
+            'querySelectorMain' => $this->request['querySelectorMain'],
+            'querySelectorOther' => $this->request['querySelectorOther']
+        );
+        $this->single_links_request['links'] = $this->links_to_crawl;
+
+    }
+
+    protected function rebuildPaginationRequest() {
+
+        $this->paginations_request = array(
+            'startPage' => reset($this->request['startPage']),
+            'endPage' => reset($this->request['endPage']),
+            'pageIterator' => reset($this->request['pageIterator']),
+            'pagesPattern' => reset($this->request['pagesPattern']),
+            'pagination_links' => $this->request['pagination_links'],
+            'querySelectorMain' => $this->request['querySelectorMain'],
+            'querySelectorOther' => $this->request['querySelectorOther']
+        );
+
 
     }
 
     protected function getAllFoundSubpagesLinks($extracted_data) {
+        #TODO: need to check if domain needs to be taken from user input or can be extracted from page if it's not included in extracted links
+        #INFO: there might be problems with domain fetching via event,
         for ($x = 0; $x <= count($extracted_data['content']) - 1; $x++) {
             $extracted_data['content'][$x]['dom_content']['main']->each(
                 function ($element, $num) {
-                    array_push($this->links_to_crawl, $this->domain . $this->subpage->extractSubpageLinkFromEachMatch($element));
+                    $subpage_link = $this->subpage->extractSubpageLinkFromEachMatch($element);
+                    $domain = $domain ?? $domain = (substr($subpage_link, 0, 1) == '/' ? $this->getDomainNameFromHeader($this->pagers_links[0]) : '');
+
+                    array_push($this->links_to_crawl, $domain . $subpage_link);
                 });
         }
+    }
+
+    protected function buildDomSelectors() {
+        $this->dom_selectors = array(
+            'querySelectorMain' => $this->request['subpagesLinkExtractionPattern']
+        );
     }
 
     private function buildPagersLinks() {
         $rebuilded_links = array();
 
-        foreach ($this->pagination_data['links'] as $one_pagination_link) {
+        foreach ($this->request['pagination_links'] as $one_pagination_link) {
             $multiply = 1; #INFO: this should be dynamic?
 
-            for ($x = $this->pagination_data['startPage']; $x <= $this->pagination_data['endPage']; $x++) {
+            for ($x = $this->paginations_request['startPage']; $x <= $this->paginations_request['endPage']; $x++) {
                 array_push($rebuilded_links, $this->buildOnePagerLink($multiply, $one_pagination_link));
                 $multiply++;
             }
@@ -90,13 +140,19 @@ class Pagination extends Controller
     private function buildOnePagerLink($multiply = false, $one_pagination_link = false) {
 
         if (!(bool)$multiply) {
-            $page_num = $this->pagination_data['startPage'];
+            $page_num = $this->paginations_request['startPage'];
         } else {
-            $page_num = (int)$this->pagination_data['startPage'] + (int)$this->pagination_data['pageIterator'] * $multiply;
+            $page_num = (int)$this->paginations_request['startPage'] + (int)$this->paginations_request['pageIterator'] * $multiply;
         }
 
-        return trim(str_replace($this->pagination_data['pagesPattern'], $page_num, $one_pagination_link));
+        return trim(str_replace($this->paginations_request['pagesPattern'], $page_num, $one_pagination_link));
     }
 
+    private function getDomainNameFromHeader($subpage_link) {
+
+        $page_header_fetch = new PageHeadersFetch();
+        $extracted_headers = $page_header_fetch->extractHeaders(event(new GetHeaderEvent($subpage_link)));
+        return $extracted_headers['domain'];
+    }
 
 }

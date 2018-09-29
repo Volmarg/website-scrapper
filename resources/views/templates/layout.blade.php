@@ -3,7 +3,7 @@
 <head>
     @include('templates/defaulthead')
 
-    <title>Laravel @yield('title')</title>
+    <title>Laravelas @yield('title')</title>
 
 <!-- move this to new scss!-->
     <style>
@@ -40,9 +40,7 @@
     @yield('jsFooter')
 
 </div>
-<footer>
-    @include('templates/footerJsScripts')
-</footer>
+
 
 @include('templates/defaultFooter')
 </body>

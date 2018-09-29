@@ -1,4 +1,4 @@
-class InputFormScripts{
+class InputFormScripts {
 
     constructor() {
 

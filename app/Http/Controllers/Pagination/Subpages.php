@@ -20,9 +20,8 @@ class Subpages extends Controller
 
     }
 
-    public function scrapSingleLinks($links_to_crawl) {
-        $fake_request = DummyData::singleLinksForm($links_to_crawl);
-        $single_links = new SingleLinksScrapper($fake_request);
+    public function scrapSingleLinks($single_links_request) {
+        $single_links = new SingleLinksScrapper($single_links_request);
         $single_links->scrapLinks();
     }
 }

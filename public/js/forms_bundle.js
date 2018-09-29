@@ -118,6 +118,14 @@ class TextExtInvoker {
             data.result = helpers.isMoreThanOne(this);
         })
 
+        $('#subpagesLinkExtractionPattern').textext({
+            plugins: 'tags prompt focus autocomplete',
+            prompt: 'Add link...',
+        }).bind('isTagAllowed', helpers, function (e, data) {
+            data.result = helpers.isMoreThanOne(this);
+        })
+
+
         $('#pagesPattern').textext({
             plugins: 'tags prompt focus autocomplete',
             prompt: 'Add link...',
@@ -128,7 +136,7 @@ class TextExtInvoker {
 
 
 }
-class InputFormScripts{
+class InputFormScripts {
 
     constructor() {
 

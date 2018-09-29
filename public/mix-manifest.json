@@ -4,6 +4,7 @@
     "/css/formGrid.css": "/css/formGrid.css",
     "/css/textExt.css": "/css/textExt.css",
     "/js/forms_bundle.js": "/js/forms_bundle.js",
+    "/js/output_bundle.js": "/js/output_bundle.js",
     "/js/libs/texttext/texttext_tags.js": "/js/libs/texttext/texttext_tags.js",
     "/js/libs/texttext/texttext_tags.css": "/js/libs/texttext/texttext_tags.css"
 }
