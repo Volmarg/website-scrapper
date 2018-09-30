@@ -1,5 +1,11 @@
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
+<h1> Website Scrapper</h1>
+<h2>  Version 1.0 finished </h2>
+<pre>
+Some more details how this work, what can be achieved with it etc, later.
+</pre>
+
 <h2>What works atm.</h2>
 
 <ul>
