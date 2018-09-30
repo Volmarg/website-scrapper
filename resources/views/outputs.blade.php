@@ -5,7 +5,7 @@
         <thead>
         <tr>
             <td>Page scanned</td>
-
+            <td style="display:none" class="technical_field export_only">Scanned Page Link</td>
             <td>Status for main</td>
             <td>Main content</td>
             <td>Status for other</td>
@@ -15,10 +15,11 @@
         @foreach($content as $num => $one_page)
             <tr>
                 <td><a href="{{$one_page['link']}}">{{str_limit($one_page['title'],70)}}</a></td>
-
+                <td style="display:none" class="technical_field export_only">{{$one_page['link']}}</td>
                 <td><b>{{$one_page['status']['status_for_main']}}</b></td>
-                @if($one_page['main'])
-                    <td>
+                <td>
+                    @if($one_page['main'])
+
                         <button id="{{$num}}"
                                 data-toggle="modal"
                                 data-target="#exampleModal"
@@ -30,10 +31,13 @@
                              style="display:none;"
                              id="hiddenContent{{$num}}"
                              data-info="move this to scss">{!! $one_page['main'] !!} </div>
-                    </td>
-                @endif
+                    @else
+                        Error loading content
+                    @endif
+                </td>
+                <td><b>{{$one_page['status']['status_for_other']}}</b></td>
                 @if($one_page['other'])
-                    <td><b>{{$one_page['status']['status_for_other']}}</b></td>
+
                     <td>
                         <button id="other_{{$num}}"
                                 data-toggle="modal"
@@ -46,8 +50,10 @@
                              style="display:none;"
                              id="hiddenContentother_{{$num}}"
                              data-info="move this to scss">{!! $one_page['other']!!} </div>
+                        @else
+                            Error loading content
+                        @endif
                     </td>
-                @endif
             </tr>
         @endforeach
     </table>

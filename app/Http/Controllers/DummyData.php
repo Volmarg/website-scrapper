@@ -13,4 +13,5 @@ use Illuminate\Http\Request;
 
 class DummyData extends Controller
 {
+
 }

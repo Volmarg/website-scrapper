@@ -15,13 +15,6 @@ use App\Http\Controllers\Curl\PageHeadersFetch;
 class Pagination extends Controller
 {
 
-    /* Process IDEA
-
-    - build all pagination links,
-    - fetch full content foreach one pagination link
-    - filter each content by given keywords (main ca be used for fetching link )
-
-    */
 
     public $links_to_crawl = array();
     public $subpage;
@@ -42,8 +35,6 @@ class Pagination extends Controller
         }
 
         $this->subpage = new Subpages();
-        $this->pagination_data = DummyData::paginationFormPart();
-        $this->domain = DummyData::$domain; #TODO: use link construction checker - this is hardcoded atm.
     }
 
     public function startGrabbingPagination() {
@@ -56,19 +47,9 @@ class Pagination extends Controller
         $dom = new DOM($this->dom_selectors);
         $extracted_pagination_content = $dom->initializeDOM($curl_fetch->getPageData());
 
-        $start = microtime(true);
         $this->getAllFoundSubpagesLinks($extracted_pagination_content);
-        echo 'find_subpages_start: </br>' . (microtime(true) - $start) . '</br>';
-
-        $start = microtime(true);
         $this->rebuildSingleLinksRequest();
-        echo 'rebuild links: </br>' . (microtime(true) - $start) . '</br>';
-
-        $start = microtime(true);
-
-        #$this->single_links_request = DummyData::timeCheckingDummyData();
         $this->subpage->scrapSingleLinks($this->single_links_request);
-        echo 'scrap single links </br>' . (microtime(true) - $start) . '</br>';
 
     }
 

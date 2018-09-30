@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Pagination;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Curl\Fetch;
-use App\Http\Controllers\DummyData;
 use App\Http\Controllers\SingleLinksScrapper;
 
 

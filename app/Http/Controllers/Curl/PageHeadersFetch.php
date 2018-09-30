@@ -27,7 +27,7 @@ class PageHeadersFetch extends Controller
             if (strstr($one_header, 'Domain')) { #Info: temporary fix - for unknown reason: same switch case doesnt work - check later
                 if (!$location_lock) {
                     preg_match('#Domain=(.*)\;#U', $one_header, $matched_domain);
-                    $domain_name = (isset($matched_domain[1]) ? (substr($matched_domain[1], 0, 1) == '.' ? 'https://'.substr($matched_domain[1], 1) : $matched_domain[1]) : null);
+                    $domain_name = (isset($matched_domain[1]) ? (substr($matched_domain[1], 0, 1) == '.' ? 'https://' . substr($matched_domain[1], 1) : $matched_domain[1]) : null);
                     $domain_lock = true;
                 }
             }
@@ -61,6 +61,11 @@ class PageHeadersFetch extends Controller
 
         }
 
+
+        if (substr($location, 0, 1) == '/') {
+            $location = $this->fixLinkWithoutDomain($location, $domain_name);
+        }
+
         return array(
             'code' => $header_code,
             'location' => $location,
@@ -79,6 +84,10 @@ class PageHeadersFetch extends Controller
         );
 
 
+    }
+
+    protected function fixLinkWithoutDomain($link, $domain_name) {
+        return $domain_name . $link;
     }
 
 }

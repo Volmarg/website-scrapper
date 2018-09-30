@@ -43,7 +43,7 @@ class CurlContentEvent
         #Https fixes
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 0);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
 
         #Keep Session
         curl_setopt($curl, CURLOPT_COOKIESESSION, true);
@@ -55,6 +55,8 @@ class CurlContentEvent
 
         $content = curl_exec($curl);
         curl_close($curl);
+
+        #$content=file_get_contents($url);
         return $content;
     }
 

@@ -56,6 +56,17 @@ class SingleLinksScrapper extends Controller //TODO: change this class/filename
         $dom = new DOM($this->request);
 
         $curl_fetch->getHeaders();
+
+        #BUG: Some target_links miss domain - move domain adder from pagination to PageHedaerFetch
+        /*
+          "original_link" => "https://indeed.com/rc/clk?jk=05557dece809ad97&fccid=004f6343b9b88d6c&vjs=3"
+    "target_link" => "/viewjob?jk=05557dece809ad97&from=serp&vjs=3"
+    "code" => "HTTP/1.1 200 OK"
+         */
+
+        #dd($curl_fetch->extraced_headers);
+        #dd('woor');
+
         $contents = $curl_fetch->getContent();
 
         $extracted_data = $dom->initializeDOM($contents);
