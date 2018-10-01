@@ -28,7 +28,12 @@ This tool was created in order to save myself lot of time spent on manual search
         </ul>
     </li> 
 </ul>
+<img src="https://raw.githubusercontent.com/Volmarg/website-scrapper/development/WebsiteScrapperInputs.jpg"><br/><br/>
+<br/>
 4. As result we get report table based on JS datatable plugin<br/>
+<img src="https://raw.githubusercontent.com/Volmarg/website-scrapper/development/WebsiteScrapperReport.jpg">
+<img src="https://raw.githubusercontent.com/Volmarg/website-scrapper/development/WebsiteScrapperReport2.jpg"><br/><br/>
+<img src="https://raw.githubusercontent.com/Volmarg/website-scrapper/development/WebsiteScrapperExcel.jpg"><br/><br/>
 5. Data can be exported to Excel file:
 
 <h2>What works</h2>
@@ -69,7 +74,13 @@ This tool was created in order to save myself lot of time spent on manual search
     <ul>
         <li> GUI </li>
     </ul>
-    </li>    
+    </li>  
+    </li>
+    Case 4:
+    <ul>
+        <li> In some places code might look... bad - ok learned what not to do, but not changing it in terms of this project </li>
+    </ul>
+    </li>  
 </ul>
 
 
@@ -106,24 +117,17 @@ This tool was created in order to save myself lot of time spent on manual search
            <ul>
            <li>Docker,</li>
            <li><a href="http://laradock.io/">LaraDock</a></li>
+           <li>Apache + Vsftpd + Xdebug </li>
            </ul>
 </li>
-
 </ul>
 
-
-<h2>Used designs</h2>
-<ul>
-</ul>
+<img src="https://raw.githubusercontent.com/Volmarg/website-scrapper/development/WebsiteScrapperConcept.jpg"><br/><br/>
 
 <h2>Tech Stack</h2>
 <ul>
-<li>PHP,</li>
-<li>Laravel 5.6,
-    <ul>
-        <li>Dump Server from 5.7 </li>
-    </ul>
-</li>
+<li>PHP 7.x,</li>
+<li>Laravel 5.6,</li>
 <li>CSS,</li>
 <li>SCSS,</li>
 <li>JS,</li>
