@@ -33,8 +33,8 @@ This tool was created in order to save myself lot of time spent on manual search
 4. As result we get report table based on JS datatable plugin<br/>
 <img src="https://raw.githubusercontent.com/Volmarg/website-scrapper/development/WebsiteScrapperReport.jpg">
 <img src="https://raw.githubusercontent.com/Volmarg/website-scrapper/development/WebsiteScrapperReport2.jpg"><br/><br/>
-<img src="https://raw.githubusercontent.com/Volmarg/website-scrapper/development/WebsiteScrapperExcel.jpg"><br/><br/>
 5. Data can be exported to Excel file:
+<img src="https://raw.githubusercontent.com/Volmarg/website-scrapper/development/WebsiteScrapperExcel.jpg"><br/><br/>
 
 <h2>What works</h2>
 
@@ -121,9 +121,6 @@ This tool was created in order to save myself lot of time spent on manual search
            </ul>
 </li>
 </ul>
-
-<img src="https://raw.githubusercontent.com/Volmarg/website-scrapper/development/WebsiteScrapperConcept.jpg"><br/><br/>
-
 <h2>Tech Stack</h2>
 <ul>
 <li>PHP 7.x,</li>
