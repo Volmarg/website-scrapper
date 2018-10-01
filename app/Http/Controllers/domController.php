@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Wa72\HtmlPageDom\HtmlPage;
-
+#INFO: REMOVE IT
 class domController extends Controller
 {
     /*

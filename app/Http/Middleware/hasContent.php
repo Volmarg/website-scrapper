@@ -7,7 +7,7 @@ use App\Http\Controllers\domController;
 
 class hasContent
 {
-
+#INFO: REMOVE IT
     /*
      *
      * This middleware should check if the given content on page passes sets of rules as for example

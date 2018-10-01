@@ -12,6 +12,7 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array
      */
+    #INFO: check which events are not used and remove them
     protected $listen = [
         'App\Events\CurlingEvent' => ['App\Listeners\CurlingListener'],
         'App\Events\CurlHeaderEvent' => ['App\Listeners\CurlHeaderListener'],

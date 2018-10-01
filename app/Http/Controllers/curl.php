@@ -8,7 +8,7 @@ use App\Http\Controllers\domController;
 
 class curl extends Controller
 {
-
+#INFO: REMOVE IT
     public $content;
 
     public function __construct()
@@ -18,10 +18,8 @@ class curl extends Controller
 
     public function getContent()
     {
-        #get content of the page via curling event, and pass it to public var so it can be used
-        #by middleware or inside this class
 
-        $url = 'https://www.indeed.nl/vacature-bekijken?jk=c33fcd6ba68c+f3f3&from=myjobs&tk=1cjp24o429sgtek0';
+        $url = 'www.wp.pl';
         return event(new curlingEvent(curl_init(), $url));
 
 
@@ -30,10 +28,6 @@ class curl extends Controller
     public function showContent()
     {
 
-        #This part is only for tests
-        #$dom=new domController($this->content);
-        #$pageContent=$dom->findElement();
-       #$matchedContent = $dom->findElement();
 
 
     }

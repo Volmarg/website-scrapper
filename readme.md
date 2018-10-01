@@ -1,24 +1,49 @@
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
-<h1> Website Scrapper</h1>
-<h2>  Version 1.0 finished </h2>
-<pre>
-Some more details how this work, what can be achieved with it etc, later.
-</pre>
+<h1> Website Scrapper </h1>
+<h2>  Version 1.0 finished <sub>#1.0.36</sub></h2>
+<pre> Only fixing some bugs in free time now</pre>
 
-<h2>What works atm.</h2>
+<p>
+This tool was created in order to save myself lot of time spent on manual searching 'things' on some websites, so instead of manually checking each single page, now the script does around 80% of work for me.
+</p>
+
+<b>Just an example</b>
+1. Let's say we got this website: <a href="https://oferia.pl/zlecenia/programowanie-it">Oferia</a>
+2. Now we are interested in offers listed in the middle, so we would need to read every single page to find what might interest us
+3. Instead we prepare some parameters by analysing website a bit like:
+<ul>
+    <li><b>Full pager link</b>: https://oferia.pl/zlecenia/programowanie-it?strona={page_number}</li> 
+    <li><b>Pager pattern</b>: {page_number}	</li> 
+    <li><b>First page that interest us</b>: 1</li> 
+    <li><b>Last page that interest us</b>: 3</li> 
+    <li><b>Pagination iteration</b>: 1 (if page 1 would have s=10, page 2 s=30, then iteration is 20)</li> 
+    <li><b>CSS selectors that will indicate links for subpages</b>: .listing-order-name</li> 
+    <li><b>CSS selector for main page content</b>: .cardOrderName</li> 
+    <li><b>CSS selector for other page content that might interest us</b>: <li>.orderMainContent
+    <li><b>Keywords by which we want to filter pages</b>:
+        <ul>
+            <li><b>Rejectable</b>: javascript, js, react, angular</li>
+            <li><b>Acceptable</b>: html, php, laravel, jquery</li>
+        </ul>
+    </li> 
+</ul>
+4. As result we get report table based on JS datatable plugin<br/>
+5. Data can be exported to Excel file:
+
+<h2>What works</h2>
 
 <ul>
 <li>Scrapping data from single pages,</li>
 <li>Scrapping data from pagination based input,</li>
 <li>Marking found content on pages</li>
 <li>Rejecting/Accepting given pages depending on inserted keywords</li>
-<li>Generating fast report with all the links and content types </li>
+<li>Generating report with all the links and content types </li>
 <li>Sorting fast report </li>
-<li>Exporting fast report into for example CSV</li>
+<li>Exporting report into for example CSV</li>
 </ul>
 
-<h2> Known unfixable bugs </h2>
+<h2> Known bugs and other things to change</h2>
 
 <ul>
     <li>Case 1:
@@ -34,6 +59,17 @@ Some more details how this work, what can be achieved with it etc, later.
             </li>
         </ul>
     </li>
+    <li>
+    Case 2:
+    <ul>
+        <li> Slow execution time </li>
+    </ul>
+    </li>
+    Case 3:
+    <ul>
+        <li> GUI </li>
+    </ul>
+    </li>    
 </ul>
 
 

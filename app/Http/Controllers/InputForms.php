@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+#INFO: REMOVE IT
 class InputForms extends Controller
 {
     public function setFormsAttributes(){
