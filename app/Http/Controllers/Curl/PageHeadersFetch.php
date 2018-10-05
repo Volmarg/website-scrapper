@@ -9,7 +9,7 @@ use App\Events\GetHeaderEvent;
 class PageHeadersFetch extends Controller
 {
 
-    public function extractHeaders($headers,$link=false) {
+    public function extractHeaders($headers, $link = false) {
 
         $location = '';
         $location_lock = false;
@@ -24,19 +24,20 @@ class PageHeadersFetch extends Controller
 
         foreach ($array_reverse as $num => $one_header) {
 
-            #info, domain is not extractes from page like: https://oferia.pl/zlecenie/item1892390-zlece-wykonanie-komercyjnych-gier-html5-android-ios-wwwaplikacja !
             if (strstr($one_header, 'Domain')) { #Info: temporary fix - for unknown reason: same switch case doesnt work - check later
                 if (!$domain_lock) {
                     preg_match('#Domain=(.*)\;#U', $one_header, $matched_domain);
                     $domain_name = (isset($matched_domain[1]) ? (substr($matched_domain[1], 0, 1) == '.' ? 'https://' . substr($matched_domain[1], 1) : $matched_domain[1]) : null);
                     $domain_lock = true;
                 }
-            }else{
+            } else {
                 if (!$domain_lock) {
-                    $domain_name = parse_url($link, PHP_URL_SCHEME).parse_url($link, PHP_URL_HOST);
+
+                    $domain_name = parse_url($link, PHP_URL_SCHEME) . '://' . parse_url($link, PHP_URL_HOST);
                     $domain_lock = true;
                 }
             }
+
 
             switch ($one_header) {
                 case (bool)strstr($one_header, 'Location'):
@@ -72,6 +73,8 @@ class PageHeadersFetch extends Controller
             $location = $this->fixLinkWithoutDomain($location, $domain_name);
         }
 
+
+        $GLOBALS['global_domain_name'] = $domain_name;
         return array(
             'code' => $header_code,
             'location' => $location,
@@ -81,7 +84,7 @@ class PageHeadersFetch extends Controller
 
     public function getFinallRedirect($link) {
 
-        $extracted_headers = $this->extractHeaders(event(new GetHeaderEvent($link)),$link);
+        $extracted_headers = $this->extractHeaders(event(new GetHeaderEvent($link)), $link);
 
         return array(
             'original_link' => $link,

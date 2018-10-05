@@ -22,10 +22,9 @@ class GetHeaderEvent
 
     public $headers;
 
-    public function __construct($url)
-    {
+    public function __construct($url) {
 
-        $this->headers = get_headers($url);
+        $this->headers = get_headers(trim($url));
     }
 
     /**
@@ -33,8 +32,7 @@ class GetHeaderEvent
      *
      * @return \Illuminate\Broadcasting\Channel|array
      */
-    public function broadcastOn()
-    {
+    public function broadcastOn() {
         return new PrivateChannel('channel-name');
     }
 }

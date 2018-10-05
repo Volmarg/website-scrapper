@@ -83,15 +83,16 @@ class Pagination extends Controller
     }
 
     protected function getAllFoundSubpagesLinks($extracted_data) {
+
+
         #TODO: need to check if domain needs to be taken from user input or can be extracted from page if it's not included in extracted links
-        #INFO: there might be problems with domain fetching via event,
+        #INFO: there might be problems with domain fetching via event,b
         for ($x = 0; $x <= count($extracted_data['content']) - 1; $x++) {
             $extracted_data['content'][$x]['dom_content']['main']->each(
                 function ($element, $num) {
+                    global $global_domain_name;
                     $subpage_link = $this->subpage->extractSubpageLinkFromEachMatch($element);
-                    $domain = $domain ?? $domain = (substr($subpage_link, 0, 1) == '/' ? $this->getDomainNameFromHeader($this->pagers_links[0]) : '');
-
-                    array_push($this->links_to_crawl, $domain . $subpage_link);
+                    array_push($this->links_to_crawl, $global_domain_name . $subpage_link);
                 });
         }
     }
@@ -129,11 +130,5 @@ class Pagination extends Controller
         return trim(str_replace($this->paginations_request['pagesPattern'], $page_num, $one_pagination_link));
     }
 
-    private function getDomainNameFromHeader($subpage_link) {
-
-        $page_header_fetch = new PageHeadersFetch();
-        $extracted_headers = $page_header_fetch->extractHeaders(event(new GetHeaderEvent($subpage_link)));
-        return $extracted_headers['domain'];
-    }
 
 }
