@@ -11,7 +11,7 @@ class Filters extends Controller
     public $keywords, $original_content, $request;
 
     public function __construct($content, $request) {
-        $this->keywords = new Keywords($request); #1>>
+        $this->keywords = new Keywords($request);
         $this->original_content = $content;
         $this->request = $request;
     }
@@ -27,7 +27,6 @@ class Filters extends Controller
     }
 
     protected function filterByKeywords() {
-        #Ciekawy case - odrazu przerzuca te wartosci do this keywords #1>>
         return $this->keywords->searchKeywords($this->original_content);
 
 

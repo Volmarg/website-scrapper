@@ -9,7 +9,6 @@ use App\Http\Controllers\Filters\Filters;
 
 class Keywords extends Controller
 {
-#BUG: there is a bug somewhere that causes each page to have the same set of found/rejected KW
     public $keywords_to_check = array();
     public $all_pages_found_keywords = array();
 

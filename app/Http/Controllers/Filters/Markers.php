@@ -11,8 +11,6 @@ namespace App\Http\Controllers\Filters;
 
 class Markers
 {
-    #This class is used for marking found keywords in case user would like to display text with found keywords
-
     static $common_style = 'weight:bold;padding:1px;display:inline-block;';
     static $rejected_style = 'border:6px red solid;';
     static $accepted_style = 'border:6px green solid;';
@@ -33,7 +31,6 @@ class Markers
 
         }
 
-        #consider using preg_ to color all KW on page
         return str_ireplace($keyword, "<span style='" . $style . "'>" . $keyword . "</span>", $content);
 
     }

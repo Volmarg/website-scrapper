@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers\Pagination;
 
-use App\Events\GetHeaderEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Curl\Fetch;
-use App\Http\Controllers\Curl\PageContentFetch;
 use App\Http\Controllers\DOM\DOM;
-use App\Http\Controllers\DummyData;
 use App\Http\Controllers\ProcessControll;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Curl\PageHeadersFetch;
 
 class Pagination extends Controller
 {
@@ -47,10 +43,11 @@ class Pagination extends Controller
         $dom = new DOM($this->dom_selectors);
         $extracted_pagination_content = $dom->initializeDOM($curl_fetch->getPageData());
 
+
         $this->getAllFoundSubpagesLinks($extracted_pagination_content);
         $this->rebuildSingleLinksRequest();
-        $this->subpage->scrapSingleLinks($this->single_links_request);
 
+        $this->subpage->scrapSingleLinks($this->single_links_request);
     }
 
     protected function rebuildSingleLinksRequest() {
@@ -84,9 +81,6 @@ class Pagination extends Controller
 
     protected function getAllFoundSubpagesLinks($extracted_data) {
 
-
-        #TODO: need to check if domain needs to be taken from user input or can be extracted from page if it's not included in extracted links
-        #INFO: there might be problems with domain fetching via event,b
         for ($x = 0; $x <= count($extracted_data['content']) - 1; $x++) {
             $extracted_data['content'][$x]['dom_content']['main']->each(
                 function ($element, $num) {
@@ -107,7 +101,7 @@ class Pagination extends Controller
         $rebuilded_links = array();
 
         foreach ($this->request['pagination_links'] as $one_pagination_link) {
-            $multiply = 1; #INFO: this should be dynamic?
+            $multiply = 1;
 
             for ($x = $this->paginations_request['startPage']; $x <= $this->paginations_request['endPage']; $x++) {
                 array_push($rebuilded_links, $this->buildOnePagerLink($multiply, $one_pagination_link));

@@ -35,9 +35,6 @@ class DOM extends Controller
     public $extracted_titles = array();
 
 
-    #TODO: think about using foreach in case when user want to fetch all elements with same class on page
-
-
     public function __construct($request) {
         $request['querySelectorMain'] = $request['querySelectorMain'] ?? NULL;
         $request['querySelectorOther'] = $request['querySelectorOther'] ?? NULL;
@@ -56,7 +53,6 @@ class DOM extends Controller
             $this->dom = new HtmlPage(implode($one_page['content']));
             $extractors = new ContentExtractors($this->query_selectors, $this->dom);
 
-            #TODO: change this return array, since no array in array is required now
             array_push($this->extracted_content,
                 array(
                     'dom_content' => array(
@@ -71,7 +67,7 @@ class DOM extends Controller
 
         return array(
             'content' => $this->extracted_content,
-            'title' => $this->extracted_titles # TODO: got to think about this element, maybe it should be optional via param, as its not required and breaks purpose of class a bit
+            'title' => $this->extracted_titles
         );
 
     }

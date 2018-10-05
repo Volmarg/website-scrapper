@@ -22,13 +22,8 @@ class Fetch extends Controller
         $this->min_content_len = 500;
     }
 
-    #TODO: make this two protected and set into one class as Headers need to be run, for Content Fetch but not required seperately
     public function getHeaders()
     {
-        #point PageHeaders class
-        #run this as first, then if header 200, pass finall links to getConent
-        #build array of finall links in this function
-
         $headers_fetch = new PageHeadersFetch();
 
         foreach ($this->links as $one_link) {

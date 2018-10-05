@@ -34,8 +34,8 @@ class CurlHeaderEvent
         curl_setopt($ch, CURLOPT_URL, $url);
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 1); #INFO: gets no data if NOBODY is off
-        curl_setopt($ch, CURLOPT_NOBODY, 1); #INFO: causes 405 header error
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+        curl_setopt($ch, CURLOPT_NOBODY, 1);
 
         $headers = curl_exec($ch);
         curl_close($ch);

@@ -11,15 +11,12 @@
 |
 */
 
-Route::get('/', 'InputForms@setFormsAttributes')->name('index');
+Route::get('/', 'InputForms@setForms')->name('index');
 
 #Route::post('/','curl@getContet')->name('curler');
 
 Route::post('/fetch-form', 'FormInput\FormFetch@getInput')->name('formFetcher');
 Route::post('/pagination','Pagination\Pagination@startGrabbingPagination')->name('paginationFetch');
-
-#Testing routes - remove them later
-Route::get('/testing', 'Pagination\Pagination@startGrabbingPagination')->name('tests');
 
 # Ajax #
 Route::get('inputForm-singlePages',function () {

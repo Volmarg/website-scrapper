@@ -9,8 +9,7 @@ use App\Events\CurlContentEvent;
 class PageContentFetch extends Controller
 {
     protected function savePageConent(){
-        #save each page content into array
-        #..
+
     }
 
     public function getContent($link){

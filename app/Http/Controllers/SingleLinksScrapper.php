@@ -10,14 +10,13 @@ use App\Http\Controllers\Rules\RejectionAcceptanceRules;
 use App\Http\Controllers\Output;
 use App\Http\Controllers\Helpers\ExtractedContentBinders;
 
-class SingleLinksScrapper extends Controller //TODO: change this class/filename
+class SingleLinksScrapper extends Controller
 {
-    #TODO: Remove remaining old Listeners/Events from curl
 
     public $request, $headers, $contents, $extracted_content, $extracted_titles;
     public $filtered_keywords, $filtered_content, $accept_reject_statuses;
 
-    public function __construct($request) { # TODO, got to think about constructor in terms of pagination scrapper - what data will be passed in
+    public function __construct($request) {
 
         $this->request = $request;
     }

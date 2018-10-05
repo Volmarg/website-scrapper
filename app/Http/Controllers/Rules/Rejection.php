@@ -10,8 +10,6 @@ class Rejection extends Controller
 {
     use RulesHelpers;
 
-    #info - for any future extension, this can be more flexible by creating func. that will buil nammes for array elements
-
     protected function hasNoAcceptableKeywords($found_keywords)
     {
         return array(
@@ -45,7 +43,6 @@ class Rejection extends Controller
         $no_keywords = $this->hasNoKeywordsAtAll($found_keywords);
         $has_rejection = $this->hasRejectionKeywords($found_keywords);
         $all_statuses_foreach_rule = compact('no_accept', 'no_keywords', 'has_rejection');
-        #dump($all_statuses_foreach_rule);
 
         $statuses_summary_foreach_source = $this->checkStatusesForAllSources($all_statuses_foreach_rule);
 
